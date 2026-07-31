@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="An independent, source-backed intelligence terminal for frontier Chinese AI models.">
+  <title>AI Intelligence Terminal — History's Future</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Libre+Caslon+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="data/models.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="https://ashokmehan.com/"><span>History's Future</span><small>The Singularity Is Here</small></a>
+    <nav aria-label="Primary navigation">
+      <a href="https://ashokmehan.com/">Home</a><a href="https://ashokmehan.com/essays/">Essays</a><a href="https://ashokmehan.com/ai-index.html" aria-current="page">AI Index</a><a href="https://ashokmehan.com/mehan-dispatch/dispatch-index.html">Dispatch</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="terminal-head">
+      <div>
+        <p class="eyebrow">China frontier models · independent intelligence</p>
+        <h1>AI Intelligence <em>Terminal</em></h1>
+        <p class="dek">A living field map of model releases, capability signals, access, context, and source confidence—designed to reveal the landscape before asking the reader to click.</p>
+      </div>
+      <aside class="briefing" aria-label="Today’s briefing">
+        <div class="briefing-label"><span class="live-dot"></span> Field briefing</div>
+        <strong id="briefingTitle">Loading the field…</strong>
+        <p id="briefingText">The model landscape is being assembled from the source-backed dataset.</p>
+        <div class="briefing-meta" id="updated">Loading dataset…</div>
+      </aside>
+    </section>
+
+    <section class="market-strip" aria-label="Market indicators">
+      <div><span>Models tracked</span><strong id="modelCount">—</strong><small>frontier releases</small></div>
+      <div><span>Million-token models</span><strong id="millionCount">—</strong><small>native or stated</small></div>
+      <div><span>Open access</span><strong id="openCount">—</strong><small>weights or repository</small></div>
+      <div><span>Newest release</span><strong id="newestDate">—</strong><small id="newestModel">—</small></div>
+      <div><span>Sources checked</span><strong id="sourceCount">—</strong><small>primary references</small></div>
+    </section>
+
+    <section class="terminal-grid">
+      <article class="panel pulse-panel">
+        <header><div><span class="panel-index">01</span><p>Market pulse</p></div><h2>Capability leaders</h2></header>
+        <div id="leaders" class="leaderboard"></div>
+      </article>
+
+      <article class="panel matrix-panel">
+        <header><div><span class="panel-index">02</span><p>Field matrix</p></div><h2>All models, all signals</h2></header>
+        <div class="matrix-scroll"><table id="matrix"><thead><tr><th>Model</th><th>Reason</th><th>Code</th><th>Agents</th><th>Multi</th><th>Efficiency</th><th>Context</th><th>Access</th></tr></thead><tbody></tbody></table></div>
+        <p class="note">Capability scores are directional editorial signals, not standardized benchmark composites.</p>
+      </article>
+
+      <article class="panel change-panel">
+        <header><div><span class="panel-index">03</span><p>What changed</p></div><h2>Release tape</h2></header>
+        <div id="releaseTape" class="release-tape"></div>
+      </article>
+
+      <article class="panel context-panel">
+        <header><div><span class="panel-index">04</span><p>Scale</p></div><h2>Context landscape</h2></header>
+        <div id="contextBars" class="context-bars"></div>
+      </article>
+
+      <article class="panel access-panel">
+        <header><div><span class="panel-index">05</span><p>Deployment</p></div><h2>Access & modality</h2></header>
+        <div class="access-split">
+          <div><h3>Access mix</h3><div id="accessMix" class="donut-wrap"></div></div>
+          <div><h3>Modality footprint</h3><div id="modalityList" class="modality-list"></div></div>
+        </div>
+      </article>
+
+      <article class="panel source-panel">
+        <header><div><span class="panel-index">06</span><p>Verification</p></div><h2>Source ledger</h2></header>
+        <div id="sourceLedger" class="source-ledger"></div>
+      </article>
+    </section>
+
+    <section class="explorer" id="explorer">
+      <div class="explorer-head">
+        <div><span class="panel-index">07</span><p class="eyebrow">Model explorer</p><h2>Build a live comparison</h2></div>
+        <div class="explorer-tools"><label>Search<input id="search" type="search" placeholder="Model, lab, strength…"></label><button id="clearCompare" type="button">Clear comparison</button></div>
+      </div>
+      <div class="explorer-layout">
+        <div id="modelList" class="model-list"></div>
+        <aside class="compare-dock" aria-live="polite">
+          <div class="dock-head"><span>Comparison tray</span><strong id="compareCount">0 / 4</strong></div>
+          <div id="compareTray" class="compare-tray"><p>Select up to four models. The broader field remains visible while this tray updates.</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="methodology">
+      <div><span class="panel-index">08</span><p class="eyebrow">Methodology</p><h2>Facts, signals, and uncertainty</h2></div>
+      <div class="method-grid">
+        <article><h3>Verified facts</h3><p>Release dates, context windows, parameters, modalities, and access are taken from official announcements, documentation, or model repositories.</p></article>
+        <article><h3>Editorial signals</h3><p>Capability scores summarize disclosed positioning and evaluations. They help navigation, but never replace independent benchmark methodology.</p></article>
+        <article><h3>Confidence trail</h3><p>Every model links to its primary source. Future automated refreshes should flag changes for human review rather than silently rewriting the record.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer><div><strong>History's Future</strong><br>The Singularity Is Here.</div><div>Independent analysis by Ashok Mehan<br><span id="footerUpdated"></span></div></footer>
+</body>
+</html>

@@ -1,0 +1,27 @@
+name: Refresh AI model data
+on:
+  schedule:
+    - cron: '17 10 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate sources and rebuild fallback
+        run: |
+          python scripts/validate_sources.py
+          python scripts/build_fallback.py
+      - name: Commit timestamp or fallback changes
+        run: |
+          git config user.name "ai-intelligence-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/models.js
+          git diff --cached --quiet || git commit -m "chore: refresh model fallback"
+          git push
