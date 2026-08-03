@@ -94,7 +94,8 @@ export default function Home() {
           <span>Mehan Observatory</span>
         </a>
         <nav aria-label="Primary navigation">
-          <a href="#intelligence">Intelligence</a>
+          <a href="/models/">U.S. vs China</a>
+          <a href="#intelligence">China monitor</a>
           <a href="#ledger">Ledger</a>
           <a href="#laboratory">Laboratory</a>
         </nav>
@@ -155,6 +156,7 @@ export default function Home() {
           <div>
             <h2>Read the field,<br /><em>not the hype.</em></h2>
             <p>A source-backed monitor of frontier Chinese models and the capabilities that matter.</p>
+            <a className="inline-route-link" href="/models/">Compare with the U.S. frontier <span>→</span></a>
           </div>
         </div>
 
@@ -284,7 +286,7 @@ export default function Home() {
       <footer>
         <div><span className="mark">MO</span><strong>Mehan Observatory</strong></div>
         <p>An independent companion to <em>History&apos;s Future: The Singularity Is Here.</em></p>
-        <div className="footer-links"><a href="https://ashokmehan.com/essays/">Essays</a><a href="https://ashokmehan.com/ai-power-index.html">AI Power Index</a><a href="https://ashokmehan.com/contact.html">Contact</a></div>
+        <div className="footer-links"><a href="/models/">U.S. vs China</a><a href="https://ashokmehan.com/essays/">Essays</a><a href="https://ashokmehan.com/ai-power-index.html">AI Power Index</a><a href="https://ashokmehan.com/contact.html">Contact</a></div>
         <small>© 2026 Ashok Mehan · Washington, D.C.</small>
       </footer>
     </main>
