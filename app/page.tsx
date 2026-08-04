@@ -94,6 +94,7 @@ export default function Home() {
           <span>Mehan Observatory</span>
         </a>
         <nav aria-label="Primary navigation">
+          <a href="/singularity/">Event Horizon</a>
           <a href="/models/">U.S. vs China</a>
           <a href="#intelligence">China monitor</a>
           <a href="#ledger">Ledger</a>
@@ -120,8 +121,8 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <a className="primary-action" href="#intelligence">Enter the Observatory</a>
-            <a className="text-action" href="https://ashokmehan.com/essays/" target="_blank" rel="noreferrer">
-              Read the latest essay <span>↗</span>
+            <a className="text-action" href="/singularity/">
+              Begin at Event Horizon <span>→</span>
             </a>
           </div>
         </div>
@@ -286,7 +287,7 @@ export default function Home() {
       <footer>
         <div><span className="mark">MO</span><strong>Mehan Observatory</strong></div>
         <p>An independent companion to <em>History&apos;s Future: The Singularity Is Here.</em></p>
-        <div className="footer-links"><a href="/models/">U.S. vs China</a><a href="https://ashokmehan.com/essays/">Essays</a><a href="https://ashokmehan.com/ai-power-index.html">AI Power Index</a><a href="https://ashokmehan.com/contact.html">Contact</a></div>
+        <div className="footer-links"><a href="/singularity/">Event Horizon</a><a href="/models/">U.S. vs China</a><a href="https://ashokmehan.com/essays/">Essays</a><a href="https://ashokmehan.com/contact.html">Contact</a></div>
         <small>© 2026 Ashok Mehan · Washington, D.C.</small>
       </footer>
     </main>

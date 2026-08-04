@@ -220,6 +220,82 @@ footer small { grid-column: 1/-1; padding-top: 24px; border-top: 1px solid var(-
 .methodology-band > a { text-transform: uppercase; text-underline-offset: 5px; font: 9px var(--font-mono); letter-spacing: .07em; }
 .frontier-book-bridge { background: var(--signal); }
 
+/* Event Horizon field guide */
+.horizon-page { background: var(--night); }
+.horizon-hero { min-height: calc(100svh - 76px); padding: 10vh 3.5vw 36px; position: relative; overflow: hidden; display: grid; grid-template-columns: 1.35fr .65fr; grid-template-rows: auto 1fr auto; gap: 45px 7vw; background: var(--night); color: var(--light); }
+.horizon-grid { position: absolute; inset: 0; opacity: .18; background-image: linear-gradient(rgba(244,240,232,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(244,240,232,.13) 1px, transparent 1px); background-size: 72px 72px; mask-image: radial-gradient(circle at 76% 48%, black, transparent 72%); }
+.horizon-orbit { position: absolute; border: 1px solid rgba(237,106,59,.3); border-radius: 50%; pointer-events: none; }
+.horizon-orbit::after { content: ""; width: 8px; height: 8px; position: absolute; border-radius: 50%; background: var(--signal); box-shadow: 0 0 20px rgba(237,106,59,.8); }
+.horizon-orbit-one { width: 64vw; height: 64vw; right: -25vw; top: -17vw; }
+.horizon-orbit-one::after { left: 13%; bottom: 21%; }
+.horizon-orbit-two { width: 38vw; height: 38vw; right: -3vw; top: 8vw; border-color: rgba(244,240,232,.2); }
+.horizon-orbit-two::after { right: 8%; top: 28%; background: var(--light); box-shadow: 0 0 20px rgba(244,240,232,.6); }
+.horizon-hero > *:not(.horizon-grid):not(.horizon-orbit) { position: relative; z-index: 1; }
+.horizon-hero > .kicker { grid-column: 1/-1; }
+.horizon-hero-copy { align-self: center; max-width: 980px; }
+.horizon-hero h1 { margin: 0 0 42px; font: 400 clamp(76px, 11vw, 164px)/.76 var(--font-display); letter-spacing: -.06em; }
+.horizon-hero h1 em { color: var(--signal); font-weight: 400; }
+.horizon-hero-copy > p { max-width: 760px; margin: 0; color: rgba(244,240,232,.68); font: clamp(20px, 2.15vw, 31px)/1.35 var(--font-display); }
+.horizon-actions { margin-top: 38px; display: flex; align-items: center; gap: 28px; }
+.horizon-observations { align-self: end; border-top: 1px solid var(--light-rule); }
+.horizon-observations article { padding: 24px 0; display: grid; grid-template-columns: 38px 90px 1fr; gap: 16px; border-bottom: 1px solid var(--light-rule); }
+.horizon-observations span, .horizon-observations p { margin: 0; color: var(--signal); text-transform: uppercase; font: 8px var(--font-mono); letter-spacing: .1em; }
+.horizon-observations strong { font: 400 19px/1.25 var(--font-display); }
+
+.horizon-section { padding: 115px 3.5vw; }
+.horizon-section-heading { display: grid; grid-template-columns: .7fr 1.45fr; gap: 7vw; margin-bottom: 65px; }
+.horizon-section-heading > div:first-child { padding-top: 12px; display: flex; align-items: flex-start; gap: 35px; }
+.horizon-section-heading h2 { margin: 0; font: 400 clamp(58px, 7.5vw, 112px)/.85 var(--font-display); letter-spacing: -.052em; }
+.horizon-section-heading h2 em { color: var(--signal); font-weight: 400; }
+.horizon-section-heading > div:last-child > p { max-width: 720px; margin: 28px 0 0; color: var(--muted); font: 19px/1.52 var(--font-display); }
+
+.horizon-trajectory { background: var(--paper); color: var(--ink); }
+.horizon-timeline { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--ink); }
+.horizon-timeline article { min-height: 330px; padding: 30px 30px 28px 0; position: relative; border-right: 1px solid var(--rule); }
+.horizon-timeline article:not(:first-child) { padding-left: 30px; }
+.horizon-timeline article:last-child { border-right: 0; opacity: .57; }
+.horizon-timeline article::before { content: ""; width: 8px; height: 8px; position: absolute; left: 0; top: -5px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 14px rgba(237,106,59,.5); }
+.horizon-timeline article:not(:first-child)::before { left: 30px; }
+.horizon-timeline span { color: var(--signal); font: 9px var(--font-mono); }
+.horizon-timeline h3 { margin: 100px 0 14px; font: 400 clamp(27px, 2.6vw, 40px)/.98 var(--font-display); }
+.horizon-timeline p { max-width: 260px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+.horizon-threshold { background: var(--paper-deep); color: var(--ink); }
+.threshold-list { margin: 0 0 0 30%; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
+.threshold-list li { min-height: 88px; padding: 25px 0; display: grid; grid-template-columns: 75px 1fr; align-items: center; border-bottom: 1px solid var(--rule); font: 400 clamp(24px, 2.5vw, 38px)/1.1 var(--font-display); }
+.threshold-list span { align-self: start; padding-top: 8px; color: var(--signal); font: 9px var(--font-mono); }
+
+.horizon-futures { background: var(--night); color: var(--light); }
+.horizon-futures .section-number, .horizon-futures .kicker { color: var(--signal); }
+.future-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--light-rule); }
+.future-grid article { min-height: 430px; padding: 34px; display: flex; flex-direction: column; border-right: 1px solid var(--light-rule); transition: background-color .2s ease, box-shadow .2s ease; }
+.future-grid article:last-child { border-right: 0; }
+.future-grid article:hover { background: rgba(237,106,59,.07); box-shadow: inset 0 3px 0 var(--signal); }
+.future-grid article > div { display: flex; justify-content: space-between; align-items: center; }
+.future-grid span, .future-grid small { color: var(--signal); text-transform: uppercase; font: 8px var(--font-mono); letter-spacing: .08em; }
+.future-grid h3 { margin: auto 0 18px; font: 400 clamp(46px, 5vw, 72px)/.9 var(--font-display); }
+.future-grid p { max-width: 420px; margin: 0; color: rgba(244,240,232,.58); font-size: 14px; line-height: 1.6; }
+
+.horizon-questions { background: var(--paper); color: var(--ink); }
+.question-list { margin-left: 24%; border-top: 1px solid var(--ink); }
+.question-list details { border-bottom: 1px solid var(--rule); }
+.question-list summary { min-height: 94px; padding: 25px 0; display: grid; grid-template-columns: 70px 1fr 30px; gap: 20px; align-items: center; cursor: pointer; list-style: none; font: 400 clamp(25px, 3vw, 43px)/1.05 var(--font-display); }
+.question-list summary::-webkit-details-marker { display: none; }
+.question-list summary span { color: var(--signal); font: 9px var(--font-mono); }
+.question-list summary i { justify-self: end; color: var(--signal); font: 400 24px var(--font-sans); font-style: normal; transition: transform .2s ease; }
+.question-list details[open] summary i { transform: rotate(45deg); }
+.question-list details > p { max-width: 780px; margin: 0 70px 30px; color: var(--muted); font: 18px/1.55 var(--font-display); }
+
+.horizon-doorways { background: var(--paper-deep); color: var(--ink); }
+.doorway-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--ink); border-left: 1px solid var(--rule); }
+.doorway-grid > a { min-height: 340px; padding: 32px; display: flex; flex-direction: column; text-decoration: none; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); transition: background-color .2s ease, box-shadow .2s ease; }
+.doorway-grid > a:hover, .doorway-grid > a:focus-visible { background: var(--paper); box-shadow: inset 3px 0 0 var(--signal); outline: none; }
+.doorway-grid > a > div { display: flex; justify-content: space-between; color: var(--signal); text-transform: uppercase; font: 8px var(--font-mono); letter-spacing: .08em; }
+.doorway-grid h3 { margin: auto 0 15px; font: 400 clamp(38px, 4.2vw, 62px)/.95 var(--font-display); }
+.doorway-grid p { max-width: 540px; margin: 0 0 28px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.doorway-grid b { color: var(--signal); text-transform: uppercase; font: 9px var(--font-mono); letter-spacing: .08em; }
+.horizon-book-bridge { background: var(--signal); }
+
 @media (max-width: 1050px) {
   .site-header { grid-template-columns: 1fr auto; }
   .site-header nav { display: none; }
@@ -235,6 +311,12 @@ footer small { grid-column: 1/-1; padding-top: 24px; border-top: 1px solid var(-
   .frontier-intro-note { grid-column: 3; }
   .frontier-card dl > div { grid-template-columns: 90px 1fr; }
   .field-findings { grid-template-columns: 1fr; }
+  .horizon-hero { grid-template-columns: 1fr; }
+  .horizon-observations { max-width: 650px; }
+  .horizon-section-heading { grid-template-columns: 1fr; }
+  .horizon-timeline { grid-template-columns: 1fr 1fr; }
+  .horizon-timeline article:nth-child(2) { border-right: 0; }
+  .threshold-list, .question-list { margin-left: 12%; }
 }
 
 @media (max-width: 760px) {
@@ -289,6 +371,24 @@ footer small { grid-column: 1/-1; padding-top: 24px; border-top: 1px solid var(-
   .finding-list p { grid-column: 2; }
   .observatory-watchlist > div:first-child { gap: 20px; }
   .methodology-band { padding: 32px 20px; grid-template-columns: 1fr; gap: 22px; }
+  .horizon-hero { min-height: calc(100svh - 66px); padding: 72px 20px 28px; gap: 34px; }
+  .horizon-hero h1 { font-size: clamp(68px, 20vw, 104px); }
+  .horizon-actions { align-items: flex-start; flex-direction: column; }
+  .horizon-observations article { grid-template-columns: 30px 72px 1fr; gap: 10px; }
+  .horizon-section { padding: 80px 20px; }
+  .horizon-section-heading > div:first-child { gap: 20px; }
+  .horizon-timeline { grid-template-columns: 1fr; }
+  .horizon-timeline article, .horizon-timeline article:not(:first-child) { min-height: 260px; padding: 28px 0; border-right: 0; }
+  .horizon-timeline article:not(:first-child)::before { left: 0; }
+  .horizon-timeline h3 { margin-top: 65px; }
+  .threshold-list, .question-list { margin-left: 0; }
+  .threshold-list li { grid-template-columns: 45px 1fr; }
+  .future-grid, .doorway-grid { grid-template-columns: 1fr; }
+  .future-grid article { min-height: 330px; border-right: 0; border-bottom: 1px solid var(--light-rule); }
+  .future-grid article:last-child { border-bottom: 0; }
+  .question-list summary { grid-template-columns: 36px 1fr 24px; gap: 10px; }
+  .question-list details > p { margin: 0 34px 26px; }
+  .doorway-grid > a { min-height: 300px; padding: 27px 22px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -155,6 +155,7 @@ export default function ModelsPage() {
           <span>Mehan Observatory</span>
         </a>
         <nav aria-label="Primary navigation">
+          <a href="/singularity/">Event Horizon</a>
           <a className="active" href="/models/">U.S. vs China</a>
           <a href="/#intelligence">China monitor</a>
           <a href="/#ledger">Ledger</a>
@@ -258,7 +259,7 @@ export default function ModelsPage() {
       <footer>
         <div><span className="mark">MO</span><strong>Mehan Observatory</strong></div>
         <p>An independent companion to <em>History&apos;s Future: The Singularity Is Here.</em></p>
-        <div className="footer-links"><a href="/">Observatory</a><a href="https://ashokmehan.com/essays/">Essays</a><a href="https://ashokmehan.com/contact.html">Contact</a></div>
+        <div className="footer-links"><a href="/">Observatory</a><a href="/singularity/">Event Horizon</a><a href="https://ashokmehan.com/essays/">Essays</a><a href="https://ashokmehan.com/contact.html">Contact</a></div>
         <small>© 2026 Ashok Mehan · Washington, D.C.</small>
       </footer>
     </main>
