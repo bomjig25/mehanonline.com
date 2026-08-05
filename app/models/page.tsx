@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SiteFooter, SiteHeader } from "../SiteChrome";
 
 export const metadata: Metadata = {
   title: "U.S. vs China Frontier AI Models — Mehan Observatory",
@@ -142,7 +143,7 @@ function ModelCard({ model, index, region }: { model: FrontierModel; index: numb
         <div><dt>Frontier signal</dt><dd>{model.strength}</dd></div>
         <div><dt>Watch next</dt><dd>{model.watch}</dd></div>
       </dl>
-      <a href={model.source}>{model.sourceLabel} <span>↗</span></a>
+      <a href={model.source} target="_blank" rel="noreferrer">{model.sourceLabel}</a>
     </article>
   );
 }
@@ -150,22 +151,7 @@ function ModelCard({ model, index, region }: { model: FrontierModel; index: numb
 export default function ModelsPage() {
   return (
     <main className="frontier-page">
-      <header className="site-header">
-        <Link className="wordmark" href="/" aria-label="Mehan Observatory home">
-          <span className="mark">MO</span>
-          <span>Mehan Observatory</span>
-        </Link>
-        <nav aria-label="Primary navigation">
-          <Link href="/singularity/">Event Horizon</Link>
-          <Link className="active" href="/models/">U.S. vs China</Link>
-          <Link href="/space/">Space frontier</Link>
-          <Link href="/#intelligence">China monitor</Link>
-          <Link href="/#laboratory">Laboratory</Link>
-        </nav>
-        <a className="book-link" href="https://ashokmehan.com/">
-          History&apos;s Future <span>↗</span>
-        </a>
-      </header>
+      <SiteHeader active="models" />
 
       <section className="frontier-hero">
         <div className="frontier-grid" aria-hidden="true" />
@@ -252,17 +238,12 @@ export default function ModelsPage() {
         <h2>The models are the instruments.<br />The future is the subject.</h2>
         <p><em>History&apos;s Future</em> places this technological race inside the longer human story.</p>
         <div>
-          <a className="primary-action light" href="https://ashokmehan.com/">Explore the book ↗</a>
+          <a className="primary-action light" href="https://ashokmehan.com/" target="_blank" rel="noreferrer">Explore the book</a>
           <Link className="text-action light-text" href="/">Return to the Observatory →</Link>
         </div>
       </section>
 
-      <footer>
-        <div><span className="mark">MO</span><strong>Mehan Observatory</strong></div>
-        <p>An independent companion to <em>History&apos;s Future: The Singularity Is Here.</em></p>
-        <div className="footer-links"><Link href="/">Observatory</Link><Link href="/singularity/">Event Horizon</Link><a href="https://ashokmehan.com/essays/">Essays</a><a href="https://ashokmehan.com/contact.html">Contact</a></div>
-        <small>© 2026 Ashok Mehan · Washington, D.C.</small>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

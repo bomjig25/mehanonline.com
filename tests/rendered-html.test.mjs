@@ -53,3 +53,35 @@ test("server-renders Event Horizon as a connected flagship field guide", async (
   assert.match(html, /href="\/#ledger"/);
   assert.match(html, /href="\/#laboratory"/);
 });
+
+test("keeps the full Observatory footer navigation consistent across routes", async () => {
+  for (const pathname of ["/", "/singularity/", "/models/", "/space/", "/contact/"]) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+
+    assert.match(html, /aria-label="Footer navigation"/);
+    assert.match(html, /href="\/singularity\/"[^>]*>Event Horizon<\/a>/);
+    assert.match(html, /href="\/models\/"[^>]*>U\.S\. vs China<\/a>/);
+    assert.match(html, /href="\/space\/"[^>]*>Space frontier<\/a>/);
+    assert.match(html, /href="\/#intelligence"[^>]*>China monitor<\/a>/);
+    assert.match(html, /href="\/#laboratory"[^>]*>Laboratory<\/a>/);
+    assert.match(html, /href="\/contact\/"[^>]*>Contact<\/a>/);
+  }
+});
+
+test("renders the Observatory contact form and homepage field-note signup", async () => {
+  const contactResponse = await render("/contact/");
+  assert.equal(contactResponse.status, 200);
+  const contactHtml = await contactResponse.text();
+  assert.match(contactHtml, /<title>Contact — Mehan Observatory<\/title>/i);
+  assert.match(contactHtml, /name="email"/);
+  assert.match(contactHtml, /name="message"/);
+  assert.match(contactHtml, /Prepare message/);
+
+  const homeResponse = await render("/");
+  const homeHtml = await homeResponse.text();
+  assert.match(homeHtml, /Observatory field notes/);
+  assert.match(homeHtml, /Read manuscript excerpts &amp; op-eds/);
+  assert.doesNotMatch(homeHtml, />Essays<\/a>/);
+});

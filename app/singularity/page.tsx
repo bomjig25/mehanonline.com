@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SiteFooter, SiteHeader } from "../SiteChrome";
 
 export const metadata: Metadata = {
   title: "Beyond the Event Horizon — Mehan Observatory",
@@ -137,22 +138,7 @@ const doorways = [
 export default function SingularityPage() {
   return (
     <main className="horizon-page">
-      <header className="site-header">
-        <Link className="wordmark" href="/" aria-label="Mehan Observatory home">
-          <span className="mark">MO</span>
-          <span>Mehan Observatory</span>
-        </Link>
-        <nav aria-label="Primary navigation">
-          <Link className="active" href="/singularity/">Event Horizon</Link>
-          <Link href="/models/">U.S. vs China</Link>
-          <Link href="/space/">Space frontier</Link>
-          <Link href="/#intelligence">Live terminal</Link>
-          <Link href="/#laboratory">Laboratory</Link>
-        </nav>
-        <a className="book-link" href="https://ashokmehan.com/">
-          History&apos;s Future <span>↗</span>
-        </a>
-      </header>
+      <SiteHeader active="singularity" />
 
       <section className="horizon-hero" id="top">
         <div className="horizon-grid" aria-hidden="true" />
@@ -264,17 +250,12 @@ export default function SingularityPage() {
         <h2>The horizon is a question.<br />The future is a responsibility.</h2>
         <p><em>History&apos;s Future</em> places artificial intelligence inside the full arc of human development.</p>
         <div>
-          <a className="primary-action light" href="https://ashokmehan.com/">Explore the book ↗</a>
+          <a className="primary-action light" href="https://ashokmehan.com/" target="_blank" rel="noreferrer">Explore the book</a>
           <Link className="text-action light-text" href="/">Return to the Observatory →</Link>
         </div>
       </section>
 
-      <footer>
-        <div><span className="mark">MO</span><strong>Mehan Observatory</strong></div>
-        <p>An independent companion to <em>History&apos;s Future: The Singularity Is Here.</em></p>
-        <div className="footer-links"><Link href="/">Observatory</Link><Link href="/models/">U.S. vs China</Link><a href="https://ashokmehan.com/essays/">Essays</a><a href="https://ashokmehan.com/contact.html">Contact</a></div>
-        <small>© 2026 Ashok Mehan · Washington, D.C.</small>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import modelData from "../ai-intelligence-terminal-v2/data/models.json";
+import SignupForm from "./SignupForm";
+import { SiteFooter, SiteHeader } from "./SiteChrome";
 
 type ScoreKey = "reasoning" | "coding" | "agents" | "multimodal" | "efficiency";
 type Model = (typeof modelData.models)[number];
@@ -88,22 +90,7 @@ export default function Home() {
 
   return (
     <main>
-      <header className="site-header">
-        <a className="wordmark" href="#top" aria-label="Mehan Observatory home">
-          <span className="mark">MO</span>
-          <span>Mehan Observatory</span>
-        </a>
-        <nav aria-label="Primary navigation">
-          <a href="/singularity/">Event Horizon</a>
-          <a href="/models/">U.S. vs China</a>
-          <a href="/space/">Space frontier</a>
-          <a href="#intelligence">China monitor</a>
-          <a href="#laboratory">Laboratory</a>
-        </nav>
-        <a className="book-link" href="https://ashokmehan.com/">
-          History&apos;s Future <span>↗</span>
-        </a>
-      </header>
+      <SiteHeader active="home" />
 
       <section className="hero" id="top">
         <div className="orbit orbit-one" aria-hidden="true" />
@@ -198,7 +185,7 @@ export default function Home() {
                           <div key={key}><span>{label}</span><i><b style={{ width: `${model.scores[key]}%` }} /></i><em>{model.scores[key]}</em></div>
                         ))}
                       </div>
-                      <a href={model.source} aria-label={`Open primary source for ${model.model}`}>↗</a>
+                      <a href={model.source} target="_blank" rel="noreferrer" aria-label={`Open primary source for ${model.model}`} />
                     </article>
                   );
                 })}
@@ -231,7 +218,7 @@ export default function Home() {
         </div>
         <div className="ledger-list">
           {essays.map((essay) => (
-            <a className="ledger-entry" key={essay.number} href={essay.href}>
+            <a className="ledger-entry has-external-icon" key={essay.number} href={essay.href} target="_blank" rel="noreferrer">
               <span className="entry-number">{essay.number}</span>
               <div className="entry-meta"><span>{essay.tag}</span><time>{essay.date}</time></div>
               <div><h3>{essay.title}</h3><p>{essay.finding}</p></div>
@@ -269,28 +256,33 @@ export default function Home() {
           <p className="lab-caption">
             A scale model, not a forecast. It reveals why institutions built around meetings, terms, and annual budgets struggle to govern systems that can iterate thousands of times faster.
           </p>
-          <a href="https://ashokmehan.com/essays/essay-004-the-clock-speed-problem.html">
-            Read “The Clock Speed Problem” <span>↗</span>
+          <a href="https://ashokmehan.com/essays/essay-004-the-clock-speed-problem.html" target="_blank" rel="noreferrer">
+            Read “The Clock Speed Problem”
           </a>
         </div>
       </section>
 
-      <section className="book-bridge">
-        <p className="kicker">The source of the inquiry</p>
+      <section className="book-bridge history-future-section">
+        <p className="kicker">From the manuscript / History&apos;s Future</p>
         <h2>From the birth of the universe<br />to the birth of artificial intelligence.</h2>
-        <p>The Observatory measures the change. <em>History&apos;s Future</em> tells the story.</p>
-        <div>
-          <a className="primary-action light" href="https://ashokmehan.com/">Explore the book ↗</a>
-          <a className="text-action light-text" href="https://ashokmehan.com/mehan-dispatch/dispatch-index.html">Read the Mehan Dispatch ↗</a>
+        <p>The Observatory measures the change. <em>History&apos;s Future</em> tells the larger story—and these manuscript op-eds test its most provocative ideas in public.</p>
+        <div className="history-future-links">
+          <a className="primary-action light" href="https://ashokmehan.com/" target="_blank" rel="noreferrer">Explore the book</a>
+          <a className="text-action light-text" href="https://ashokmehan.com/essays/" target="_blank" rel="noreferrer">Read manuscript excerpts &amp; op-eds</a>
+          <a className="text-action light-text" href="https://ashokmehan.com/mehan-dispatch/dispatch-index.html" target="_blank" rel="noreferrer">Read the Mehan Dispatch</a>
         </div>
       </section>
 
-      <footer>
-        <div><span className="mark">MO</span><strong>Mehan Observatory</strong></div>
-        <p>An independent companion to <em>History&apos;s Future: The Singularity Is Here.</em></p>
-        <div className="footer-links"><a href="/singularity/">Event Horizon</a><a href="/models/">U.S. vs China</a><a href="/space/">Space frontier</a><a href="https://ashokmehan.com/essays/">Essays</a></div>
-        <small>© 2026 Ashok Mehan · Washington, D.C.</small>
-      </footer>
+      <section className="signup-band" aria-labelledby="signup-title">
+        <div>
+          <p className="kicker">Observatory field notes</p>
+          <h2 id="signup-title">Follow what changes<br /><em>between editions.</em></h2>
+          <p>Occasional updates on frontier models, autonomous systems, manuscript arguments, and new evidence added to the Observatory.</p>
+        </div>
+        <SignupForm />
+      </section>
+
+      <SiteFooter />
     </main>
   );
 }

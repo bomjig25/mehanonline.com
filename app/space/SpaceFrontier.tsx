@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { actorGroups, missionRecords, missionYears, monthOrder, type ActorGroup } from "./missionData";
+import { SiteFooter, SiteHeader } from "../SiteChrome";
 
 type MissionState = "Verified" | "Changed" | "Watch";
 
@@ -115,13 +116,7 @@ export default function SpaceFrontier() {
 
   return (
     <main className="space-page">
-      <header className="site-header">
-        <Link className="wordmark" href="/" aria-label="Mehan Observatory home"><span className="mark">MO</span><span>Mehan Observatory</span></Link>
-        <nav aria-label="Primary navigation">
-          <Link href="/singularity/">Event Horizon</Link><Link href="/models/">U.S. vs China</Link><Link className="active" href="/space/">Space frontier</Link><Link href="/#intelligence">Live terminal</Link><Link href="/#laboratory">Laboratory</Link>
-        </nav>
-        <a className="book-link" href="https://ashokmehan.com/">History&apos;s Future <span>↗</span></a>
-      </header>
+      <SiteHeader active="space" />
 
       <section className="space-hero">
         <div className="space-stars" aria-hidden="true" />
@@ -219,7 +214,7 @@ export default function SpaceFrontier() {
               <p className="mission-actor">{mission.actor}</p><h4>{mission.mission}</h4>
               <dl><div><dt>Schedule</dt><dd>{mission.launch}</dd></div><div><dt>Type</dt><dd>{mission.type}</dd></div><div><dt>Destination</dt><dd>{mission.destination}</dd></div>{mission.partners && <div><dt>Partners</dt><dd>{mission.partners}</dd></div>}</dl>
               <p className="mission-description">{mission.description}</p>
-              {correction && <div className={`mission-correction state-${correction.state.toLowerCase()}`}><span>{correction.state} field note</span><strong>{correction.current}</strong><p>{correction.consequence}</p><a href={correction.source}>Official source ↗</a></div>}
+              {correction && <div className={`mission-correction state-${correction.state.toLowerCase()}`}><span>{correction.state} field note</span><strong>{correction.current}</strong><p>{correction.consequence}</p><a href={correction.source} target="_blank" rel="noreferrer">Official source</a></div>}
             </article>;
           })}</div>
           {!selectedMissions.length && <p className="record-empty">No workbook records match this combined selection.</p>}
@@ -243,7 +238,7 @@ export default function SpaceFrontier() {
       </section>
 
       <section className="space-intelligence">
-        <div><span className="section-number">03</span><p className="kicker">AI in space / 24 applications</p><h2>The machine is already<br /><em>leaving the loop.</em></h2><p>Navigation, scientific selection, anomaly detection, and robotics dominate the workbook’s AI catalog. In May 2026, NASA also reported the first geospatial foundation model deployed in orbit.</p><a href="https://science.nasa.gov/science-research/ai-foundation-model-in-orbit/">NASA / Prithvi in orbit ↗</a></div>
+        <div><span className="section-number">03</span><p className="kicker">AI in space / 24 applications</p><h2>The machine is already<br /><em>leaving the loop.</em></h2><p>Navigation, scientific selection, anomaly detection, and robotics dominate the workbook’s AI catalog. In May 2026, NASA also reported the first geospatial foundation model deployed in orbit.</p><a href="https://science.nasa.gov/science-research/ai-foundation-model-in-orbit/" target="_blank" rel="noreferrer">NASA / Prithvi in orbit</a></div>
         <div className="ai-domain-grid">{aiDomains.map(([domain, count], index) => <article key={domain}><span>{String(index + 1).padStart(2, "0")}</span><strong>{count}</strong><p>{domain}</p></article>)}</div>
       </section>
 
@@ -257,15 +252,15 @@ export default function SpaceFrontier() {
       <section className="field-record" id="field-record">
         <div className="field-record-heading"><div><span className="section-number">05</span><p className="kicker">Refreshed field record</p></div><div><h2>A forecast should show<br /><em>its revisions.</em></h2><p>Workbook snapshot: April 2026. Observatory review: August 4, 2026. Dates move; the change itself is evidence.</p></div></div>
         <div className="record-tools"><div className="record-filters">{(["All", "Verified", "Changed", "Watch"] as const).map((item) => <button type="button" key={item} className={status === item ? "selected" : ""} onClick={() => setStatus(item)}>{item}</button>)}</div><label><span className="sr-only">Search mission updates</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search mission or agency" /></label></div>
-        <div className="update-list">{filteredUpdates.map((item) => <article key={item.mission}><div><span className={`record-state state-${item.state.toLowerCase()}`}>{item.state}</span><small>{item.actor}</small></div><h3>{item.mission}</h3><div className="record-change"><p><span>Workbook</span>{item.workbook}</p><b>→</b><p><span>Current field</span>{item.current}</p></div><p className="record-consequence">{item.consequence}</p><a href={item.source} aria-label={`Open official source for ${item.mission}`}>Official source ↗</a></article>)}</div>
+        <div className="update-list">{filteredUpdates.map((item) => <article key={item.mission}><div><span className={`record-state state-${item.state.toLowerCase()}`}>{item.state}</span><small>{item.actor}</small></div><h3>{item.mission}</h3><div className="record-change"><p><span>Workbook</span>{item.workbook}</p><b>→</b><p><span>Current field</span>{item.current}</p></div><p className="record-consequence">{item.consequence}</p><a href={item.source} target="_blank" rel="noreferrer" aria-label={`Open official source for ${item.mission}`}>Official source</a></article>)}</div>
         {!filteredUpdates.length && <p className="record-empty">No records match this view.</p>}
       </section>
 
       <section className="space-method"><span>Method</span><p>The original workbook remains the baseline. This page aggregates all six tabs, checks selected high-consequence claims against official agency or company sources, and marks schedules as targets when they remain uncertain. Technology readiness levels are directional and may vary by implementation.</p><a href="/singularity/">Return to Event Horizon →</a></section>
 
-      <section className="book-bridge space-book-bridge"><p className="kicker">The conceptual doorway</p><h2>Distance does not end intelligence.<br />It changes who decides.</h2><p>Follow the autonomy problem back to the larger question of accelerating machine capability.</p><div><Link className="primary-action light" href="/singularity/">Enter Event Horizon →</Link><a className="text-action light-text" href="https://ashokmehan.com/">Explore the book ↗</a></div></section>
+      <section className="book-bridge space-book-bridge"><p className="kicker">The conceptual doorway</p><h2>Distance does not end intelligence.<br />It changes who decides.</h2><p>Follow the autonomy problem back to the larger question of accelerating machine capability.</p><div><Link className="primary-action light" href="/singularity/">Enter Event Horizon →</Link><a className="text-action light-text" href="https://ashokmehan.com/" target="_blank" rel="noreferrer">Explore the book</a></div></section>
 
-      <footer><div><span className="mark">MO</span><strong>Mehan Observatory</strong></div><p>An independent companion to <em>History&apos;s Future: The Singularity Is Here.</em></p><div className="footer-links"><Link href="/singularity/">Event Horizon</Link><Link href="/models/">U.S. vs China</Link><Link href="/space/">Space frontier</Link><a href="https://ashokmehan.com/essays/">Essays</a></div><small>© 2026 Ashok Mehan · Washington, D.C.</small></footer>
+      <SiteFooter />
     </main>
   );
 }
