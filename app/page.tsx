@@ -100,7 +100,7 @@ export default function Home() {
           <a href="#ledger">Ledger</a>
           <a href="#laboratory">Laboratory</a>
         </nav>
-        <a className="book-link" href="https://ashokmehan.com/" target="_blank" rel="noreferrer">
+        <a className="book-link" href="https://ashokmehan.com/">
           History&apos;s Future <span>↗</span>
         </a>
       </header>
@@ -230,7 +230,7 @@ export default function Home() {
         </div>
         <div className="ledger-list">
           {essays.map((essay) => (
-            <a className="ledger-entry" key={essay.number} href={essay.href} target="_blank" rel="noreferrer">
+            <a className="ledger-entry" key={essay.number} href={essay.href}>
               <span className="entry-number">{essay.number}</span>
               <div className="entry-meta"><span>{essay.tag}</span><time>{essay.date}</time></div>
               <div><h3>{essay.title}</h3><p>{essay.finding}</p></div>
@@ -268,7 +268,7 @@ export default function Home() {
           <p className="lab-caption">
             A scale model, not a forecast. It reveals why institutions built around meetings, terms, and annual budgets struggle to govern systems that can iterate thousands of times faster.
           </p>
-          <a href="https://ashokmehan.com/essays/essay-004-the-clock-speed-problem.html" target="_blank" rel="noreferrer">
+          <a href="https://ashokmehan.com/essays/essay-004-the-clock-speed-problem.html">
             Read “The Clock Speed Problem” <span>↗</span>
           </a>
         </div>
@@ -279,8 +279,8 @@ export default function Home() {
         <h2>From the birth of the universe<br />to the birth of artificial intelligence.</h2>
         <p>The Observatory measures the change. <em>History&apos;s Future</em> tells the story.</p>
         <div>
-          <a className="primary-action light" href="https://ashokmehan.com/" target="_blank" rel="noreferrer">Explore the book ↗</a>
-          <a className="text-action light-text" href="https://ashokmehan.com/mehan-dispatch/dispatch-index.html" target="_blank" rel="noreferrer">Read the Mehan Dispatch ↗</a>
+          <a className="primary-action light" href="https://ashokmehan.com/">Explore the book ↗</a>
+          <a className="text-action light-text" href="https://ashokmehan.com/mehan-dispatch/dispatch-index.html">Read the Mehan Dispatch ↗</a>
         </div>
       </section>
 

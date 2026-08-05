@@ -161,7 +161,7 @@ export default function ModelsPage() {
           <a href="/#ledger">Ledger</a>
           <a href="/#laboratory">Laboratory</a>
         </nav>
-        <a className="book-link" href="https://ashokmehan.com/" target="_blank" rel="noreferrer">
+        <a className="book-link" href="https://ashokmehan.com/">
           History&apos;s Future <span>↗</span>
         </a>
       </header>
@@ -251,7 +251,7 @@ export default function ModelsPage() {
         <h2>The models are the instruments.<br />The future is the subject.</h2>
         <p><em>History&apos;s Future</em> places this technological race inside the longer human story.</p>
         <div>
-          <a className="primary-action light" href="https://ashokmehan.com/" target="_blank" rel="noreferrer">Explore the book ↗</a>
+          <a className="primary-action light" href="https://ashokmehan.com/">Explore the book ↗</a>
           <a className="text-action light-text" href="/">Return to the Observatory →</a>
         </div>
       </section>
