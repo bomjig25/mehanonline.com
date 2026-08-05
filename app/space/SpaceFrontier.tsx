@@ -3,27 +3,9 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { actorGroups, missionRecords, missionYears, monthOrder, type ActorGroup } from "./missionData";
 
 type MissionState = "Verified" | "Changed" | "Watch";
-
-const yearCounts = [
-  { year: "2025", count: 1 },
-  { year: "2026", count: 37 },
-  { year: "2027", count: 5 },
-  { year: "2028", count: 12 },
-  { year: "2029", count: 2 },
-  { year: "2030", count: 7 },
-  { year: "2031+", count: 8 },
-];
-
-const actors = [
-  { name: "NASA", count: 14 },
-  { name: "ESA / Europe", count: 14 },
-  { name: "China", count: 9 },
-  { name: "India", count: 9 },
-  { name: "Japan", count: 5 },
-  { name: "Other public + private", count: 21 },
-];
 
 const destinations = [
   { id: "orbit", label: "Earth orbit", delay: "< 1 sec", seconds: 0.03, autonomy: 12, note: "Ground control can remain conversational." },
@@ -77,10 +59,27 @@ function formatDelay(seconds: number) {
   return `${Math.round(seconds / 60)} minutes`;
 }
 
+const updateByRecordId: Partial<Record<number, (typeof updates)[number]>> = {
+  1: updates[0], 4: updates[1], 9: updates[9], 13: updates[8], 16: updates[2],
+  17: updates[3], 30: updates[4], 38: updates[10], 50: updates[2], 51: updates[5], 61: updates[7],
+};
+
+function countBy<T extends string>(items: T[]) {
+  return items.reduce<Record<string, number>>((counts, item) => {
+    counts[item] = (counts[item] || 0) + 1;
+    return counts;
+  }, {});
+}
+
 export default function SpaceFrontier() {
   const [destination, setDestination] = useState("mars");
   const [status, setStatus] = useState<"All" | MissionState>("All");
   const [query, setQuery] = useState("");
+  const [selectedYear, setSelectedYear] = useState("2026");
+  const [selectedActor, setSelectedActor] = useState<ActorGroup | "All actors">("All actors");
+  const [selectedType, setSelectedType] = useState("All types");
+  const [hoverYear, setHoverYear] = useState<string | null>(null);
+  const [hoverActor, setHoverActor] = useState<ActorGroup | "All actors" | null>(null);
   const selected = destinations.find((item) => item.id === destination) ?? destinations[2];
   const filteredUpdates = useMemo(() => updates.filter((item) => {
     const stateMatch = status === "All" || item.state === status;
@@ -88,8 +87,31 @@ export default function SpaceFrontier() {
     const textMatch = !needle || `${item.mission} ${item.actor} ${item.current}`.toLowerCase().includes(needle);
     return stateMatch && textMatch;
   }), [status, query]);
-  const maxYear = Math.max(...yearCounts.map((item) => item.count));
-  const maxActor = Math.max(...actors.map((item) => item.count));
+  const effectiveYear = hoverYear ?? selectedYear;
+  const effectiveActor = hoverActor ?? selectedActor;
+  const yearBase = missionRecords.filter((mission) => effectiveActor === "All actors" || mission.actorGroup === effectiveActor);
+  const yearCounts = countBy(yearBase.map((mission) => mission.year ?? "Unscheduled"));
+  const maxYear = Math.max(1, ...Object.values(yearCounts));
+  const actorBase = missionRecords.filter((mission) => (mission.year ?? "Unscheduled") === effectiveYear);
+  const actorCounts = countBy(actorBase.map((mission) => mission.actorGroup));
+  const maxActor = Math.max(1, ...Object.values(actorCounts));
+  const selectionBase = missionRecords.filter((mission) =>
+    (mission.year ?? "Unscheduled") === effectiveYear &&
+    (effectiveActor === "All actors" || mission.actorGroup === effectiveActor),
+  );
+  const typeCounts = countBy(selectionBase.map((mission) => mission.type));
+  const availableTypes = Object.entries(typeCounts).sort((a, b) => b[1] - a[1]);
+  const selectedMissions = selectionBase.filter((mission) => selectedType === "All types" || mission.type === selectedType);
+  const monthCounts = countBy(selectedMissions.map((mission) => mission.month ?? "Unspecified"));
+  const maxMonth = Math.max(1, ...Object.values(monthCounts));
+
+  function resetMissionView() {
+    setSelectedYear("2026");
+    setSelectedActor("All actors");
+    setSelectedType("All types");
+    setHoverYear(null);
+    setHoverActor(null);
+  }
 
   return (
     <main className="space-page">
@@ -131,14 +153,82 @@ export default function SpaceFrontier() {
       </figure>
 
       <section className="space-dashboard" aria-label="Workbook mission dashboard">
-        <div className="dashboard-heading"><div><span>Planning wave</span><strong>2025–2035+</strong></div><p>The spreadsheet concentrates half its mission entries in 2026. These are schedule records, not a count of successful launches.</p></div>
-        <div className="wave-chart">
-          {yearCounts.map((item) => <div className="wave-column" key={item.year}><div><i style={{ height: `${Math.max(7, item.count / maxYear * 100)}%` }}><b>{item.count}</b></i></div><span>{item.year}</span></div>)}
+        <div className="dashboard-heading"><div><span>Coordinated mission explorer</span><strong>72 records / 69 names</strong></div><p>Hover to preview; click to lock a year or actor. Both charts, the month profile, mission types, and detailed records update together. Counts are workbook rows—not completed launches—and partnership entries can repeat a named mission.</p></div>
+        <div className="mission-selection-line" aria-live="polite">
+          <div><span>Active field</span><strong>{effectiveYear} · {effectiveActor}</strong><small>{selectionBase.length} records before mission-type filtering</small></div>
+          <button type="button" onClick={resetMissionView}>Reset view</button>
+        </div>
+        <div className="wave-chart" aria-label="Mission records by year">
+          {missionYears.map((year) => {
+            const count = yearCounts[year] || 0;
+            const isSelected = selectedYear === year;
+            return <button
+              type="button"
+              className={`wave-column ${isSelected ? "selected" : ""}`}
+              key={year}
+              aria-pressed={isSelected}
+              aria-label={`${count} mission records in ${year}${effectiveActor === "All actors" ? "" : ` for ${effectiveActor}`}`}
+              onMouseEnter={() => setHoverYear(year)}
+              onMouseLeave={() => setHoverYear(null)}
+              onFocus={() => setHoverYear(year)}
+              onBlur={() => setHoverYear(null)}
+              onClick={() => { setSelectedYear(year); setSelectedType("All types"); }}
+            ><div><i style={{ height: `${count ? Math.max(7, count / maxYear * 100) : 2}%` }}><b>{count}</b></i></div><span>{year}</span></button>;
+          })}
         </div>
         <div className="actor-field">
-          <div><p className="kicker">Entries by actor</p><h3>A distributed frontier.</h3><p>The workbook spans agencies, partnerships, and eighteen commercial companies. Collaboration is becoming as important as nationality.</p></div>
-          <div className="actor-bars">{actors.map((actor) => <div key={actor.name}><span>{actor.name}</span><i><b style={{ width: `${actor.count / maxActor * 100}%` }} /></i><strong>{actor.count}</strong></div>)}</div>
+          <div><p className="kicker">Actor field for {effectiveYear}</p><h3>A distributed frontier.</h3><p>These bars are now linked to the planning wave. Select an actor to isolate its mission mix, then use the month and type controls below to interrogate the records.</p></div>
+          <div className="actor-bars">{actorGroups.map((actor) => {
+            const count = actor === "All actors" ? actorBase.length : actorCounts[actor] || 0;
+            const isSelected = selectedActor === actor;
+            return <button
+              type="button"
+              key={actor}
+              className={isSelected ? "selected" : ""}
+              aria-pressed={isSelected}
+              onMouseEnter={() => setHoverActor(actor)}
+              onMouseLeave={() => setHoverActor(null)}
+              onFocus={() => setHoverActor(actor)}
+              onBlur={() => setHoverActor(null)}
+              onClick={() => { setSelectedActor(actor); setSelectedType("All types"); }}
+            ><span>{actor}</span><i><b style={{ width: `${actor === "All actors" ? 100 : count / maxActor * 100}%` }} /></i><strong>{count}</strong></button>;
+          })}</div>
         </div>
+
+        <div className="mission-drilldown">
+          <div className="month-profile">
+            <div className="drilldown-heading"><div><p className="kicker">Month profile</p><h3>{effectiveYear} schedule resolution</h3></div><p>Only 15 of 72 workbook records specify an exact month. “Unspecified” preserves uncertainty rather than inventing precision from labels such as “late,” “Q1,” or “H2.”</p></div>
+            <div className="month-bars">{monthOrder.map((month) => {
+              const count = monthCounts[month] || 0;
+              return <div key={month} className={count ? "has-data" : ""}><span>{month}</span><i><b style={{ height: `${count ? Math.max(8, count / maxMonth * 100) : 0}%` }} /></i><strong>{count || "·"}</strong></div>;
+            })}</div>
+          </div>
+
+          <div className="type-profile">
+            <div className="drilldown-heading"><div><p className="kicker">Mission types</p><h3>What is being attempted?</h3></div><p>Choose a type to narrow the detailed records without breaking the year and actor context.</p></div>
+            <div className="type-chips"><button type="button" className={selectedType === "All types" ? "selected" : ""} onClick={() => setSelectedType("All types")}>All types <span>{selectionBase.length}</span></button>{availableTypes.map(([type, count]) => <button type="button" key={type} className={selectedType === type ? "selected" : ""} onClick={() => setSelectedType(type)}>{type} <span>{count}</span></button>)}</div>
+          </div>
+        </div>
+
+        <div className="mission-record-panel">
+          <div className="mission-record-title"><div><p className="kicker">Detailed mission records</p><h3>{selectedMissions.length} matching {selectedMissions.length === 1 ? "record" : "records"}</h3></div><p>Descriptions below reproduce the workbook’s “All Missions” field. Orange correction notes come from the separately verified August 2026 field review.</p></div>
+          <div className="mission-record-grid">{selectedMissions.map((mission) => {
+            const correction = updateByRecordId[mission.id];
+            return <article key={mission.id}>
+              <div className="mission-card-top"><span>Workbook row {mission.id}</span><small>{mission.status}</small></div>
+              <p className="mission-actor">{mission.actor}</p><h4>{mission.mission}</h4>
+              <dl><div><dt>Schedule</dt><dd>{mission.launch}</dd></div><div><dt>Type</dt><dd>{mission.type}</dd></div><div><dt>Destination</dt><dd>{mission.destination}</dd></div>{mission.partners && <div><dt>Partners</dt><dd>{mission.partners}</dd></div>}</dl>
+              <p className="mission-description">{mission.description}</p>
+              {correction && <div className={`mission-correction state-${correction.state.toLowerCase()}`}><span>{correction.state} field note</span><strong>{correction.current}</strong><p>{correction.consequence}</p><a href={correction.source}>Official source ↗</a></div>}
+            </article>;
+          })}</div>
+          {!selectedMissions.length && <p className="record-empty">No workbook records match this combined selection.</p>}
+        </div>
+      </section>
+
+      <section className="research-protocol" aria-labelledby="protocol-title">
+        <div><span className="section-number">Data note</span><p className="kicker">Research protocol</p></div>
+        <div><h2 id="protocol-title">What this instrument<br /><em>counts—and does not.</em></h2><div className="protocol-grid"><article><span>Unit of observation</span><strong>One workbook row</strong><p>Rows represent agency or company program records. Joint missions may appear under more than one partner, so the 72 records contain 69 distinct mission names.</p></article><article><span>Temporal resolution</span><strong>Declared schedule text</strong><p>The explorer extracts a year and only assigns a month when the workbook explicitly names one. Approximate, quarterly, half-year, and “late” dates remain unspecified.</p></article><article><span>Verification layer</span><strong>Selective official review</strong><p>High-consequence or visibly changed records receive a dated field note linked to an agency or company source. Unreviewed rows remain workbook claims.</p></article><article><span>Interpretive limit</span><strong>Not a launch manifest</strong><p>Counts include launches, arrivals, flybys, ongoing operations, and proposed infrastructure. They measure the planning field, not launch cadence or mission success.</p></article></div></div>
       </section>
 
       <section className="autonomy-lab" id="autonomy">
