@@ -96,8 +96,8 @@ export default function Home() {
         <nav aria-label="Primary navigation">
           <a href="/singularity/">Event Horizon</a>
           <a href="/models/">U.S. vs China</a>
+          <a href="/space/">Space frontier</a>
           <a href="#intelligence">China monitor</a>
-          <a href="#ledger">Ledger</a>
           <a href="#laboratory">Laboratory</a>
         </nav>
         <a className="book-link" href="https://ashokmehan.com/">
@@ -158,6 +158,7 @@ export default function Home() {
             <h2>Read the field,<br /><em>not the hype.</em></h2>
             <p>A source-backed monitor of frontier Chinese models and the capabilities that matter.</p>
             <a className="inline-route-link" href="/models/">Compare with the U.S. frontier <span>→</span></a>
+            <a className="inline-route-link secondary-route-link" href="/space/">Enter the autonomous frontier <span>→</span></a>
           </div>
         </div>
 
@@ -287,7 +288,7 @@ export default function Home() {
       <footer>
         <div><span className="mark">MO</span><strong>Mehan Observatory</strong></div>
         <p>An independent companion to <em>History&apos;s Future: The Singularity Is Here.</em></p>
-        <div className="footer-links"><a href="/singularity/">Event Horizon</a><a href="/models/">U.S. vs China</a><a href="https://ashokmehan.com/essays/">Essays</a><a href="https://ashokmehan.com/contact.html">Contact</a></div>
+        <div className="footer-links"><a href="/singularity/">Event Horizon</a><a href="/models/">U.S. vs China</a><a href="/space/">Space frontier</a><a href="https://ashokmehan.com/essays/">Essays</a></div>
         <small>© 2026 Ashok Mehan · Washington, D.C.</small>
       </footer>
     </main>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Beyond the Event Horizon — Mehan Observatory",
@@ -124,21 +125,29 @@ const doorways = [
     text: "Feel the clock-speed gap between machine iteration and institutional response.",
     href: "/#laboratory",
   },
+  {
+    number: "05",
+    label: "Physical frontier",
+    title: "The Autonomous Frontier",
+    text: "See why distance forces intelligence to move from Earth into the machine.",
+    href: "/space/",
+  },
 ];
 
 export default function SingularityPage() {
   return (
     <main className="horizon-page">
       <header className="site-header">
-        <a className="wordmark" href="/" aria-label="Mehan Observatory home">
+        <Link className="wordmark" href="/" aria-label="Mehan Observatory home">
           <span className="mark">MO</span>
           <span>Mehan Observatory</span>
-        </a>
+        </Link>
         <nav aria-label="Primary navigation">
-          <a className="active" href="/singularity/">Event Horizon</a>
-          <a href="/models/">U.S. vs China</a>
-          <a href="/#intelligence">Live terminal</a>
-          <a href="/#laboratory">Laboratory</a>
+          <Link className="active" href="/singularity/">Event Horizon</Link>
+          <Link href="/models/">U.S. vs China</Link>
+          <Link href="/space/">Space frontier</Link>
+          <Link href="/#intelligence">Live terminal</Link>
+          <Link href="/#laboratory">Laboratory</Link>
         </nav>
         <a className="book-link" href="https://ashokmehan.com/">
           History&apos;s Future <span>↗</span>
@@ -240,12 +249,12 @@ export default function SingularityPage() {
         </div>
         <div className="doorway-grid">
           {doorways.map((doorway) => (
-            <a href={doorway.href} key={doorway.number}>
+            <Link href={doorway.href} key={doorway.number}>
               <div><span>{doorway.number}</span><small>{doorway.label}</small></div>
               <h3>{doorway.title}</h3>
               <p>{doorway.text}</p>
               <b>Enter →</b>
-            </a>
+            </Link>
           ))}
         </div>
       </section>
@@ -256,14 +265,14 @@ export default function SingularityPage() {
         <p><em>History&apos;s Future</em> places artificial intelligence inside the full arc of human development.</p>
         <div>
           <a className="primary-action light" href="https://ashokmehan.com/">Explore the book ↗</a>
-          <a className="text-action light-text" href="/">Return to the Observatory →</a>
+          <Link className="text-action light-text" href="/">Return to the Observatory →</Link>
         </div>
       </section>
 
       <footer>
         <div><span className="mark">MO</span><strong>Mehan Observatory</strong></div>
         <p>An independent companion to <em>History&apos;s Future: The Singularity Is Here.</em></p>
-        <div className="footer-links"><a href="/">Observatory</a><a href="/models/">U.S. vs China</a><a href="https://ashokmehan.com/essays/">Essays</a><a href="https://ashokmehan.com/contact.html">Contact</a></div>
+        <div className="footer-links"><Link href="/">Observatory</Link><Link href="/models/">U.S. vs China</Link><a href="https://ashokmehan.com/essays/">Essays</a><a href="https://ashokmehan.com/contact.html">Contact</a></div>
         <small>© 2026 Ashok Mehan · Washington, D.C.</small>
       </footer>
     </main>
