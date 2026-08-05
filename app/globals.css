@@ -14,7 +14,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-sans), Arial, sans-serif; }
 a { color: inherit; }
 button, input { font: inherit; }
@@ -26,9 +26,14 @@ button, input { font: inherit; }
 .mark { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid currentColor; border-radius: 50%; font: 10px var(--font-mono); letter-spacing: -0.08em; }
 .site-header nav { display: flex; gap: 25px; }
 .site-header nav a, .book-link { text-decoration: none; text-transform: uppercase; font: 10px var(--font-mono); letter-spacing: .12em; }
-.site-header nav a:hover, .book-link:hover { color: var(--signal); }
-.site-header nav a.active { color: var(--signal); }
+.site-header nav a:hover, .site-header nav a:focus-visible, .book-link:hover, .book-link:focus-visible { color: var(--signal); }
+.site-header nav a.active,
+main:has(#intelligence:target) .site-header nav a[href="#intelligence"],
+main:has(#ledger:target) .site-header nav a[href="#ledger"],
+main:has(#laboratory:target) .site-header nav a[href="#laboratory"] { color: var(--signal); }
 .book-link { justify-self: end; display: flex; gap: 10px; }
+
+#top, #intelligence, #ledger, #laboratory, #trajectory, #questions, #watchlist { scroll-margin-top: 24px; }
 
 .hero { min-height: calc(100svh - 76px); background: var(--night); color: var(--light); position: relative; overflow: hidden; padding: 11vh 3.5vw 34px; display: flex; flex-direction: column; justify-content: space-between; }
 .star-field { position: absolute; inset: 0; opacity: .57; background-image: radial-gradient(circle at 16% 26%, rgba(237,106,59,.9) 0 1px, transparent 1.4px), radial-gradient(circle at 71% 14%, rgba(255,255,255,.8) 0 1px, transparent 1.5px), radial-gradient(circle at 49% 73%, rgba(255,255,255,.65) 0 1px, transparent 1.5px), radial-gradient(circle at 86% 58%, rgba(244,240,232,.75) 0 1px, transparent 1.5px); background-size: 190px 170px, 260px 230px, 310px 280px, 370px 330px; mask-image: linear-gradient(to bottom, black, transparent 88%); }
