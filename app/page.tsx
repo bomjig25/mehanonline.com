@@ -198,7 +198,7 @@ export default function Home() {
                           <div key={key}><span>{label}</span><i><b style={{ width: `${model.scores[key]}%` }} /></i><em>{model.scores[key]}</em></div>
                         ))}
                       </div>
-                      <a href={model.source} target="_blank" rel="noreferrer" aria-label={`Open primary source for ${model.model}`}>↗</a>
+                      <a href={model.source} aria-label={`Open primary source for ${model.model}`}>↗</a>
                     </article>
                   );
                 })}

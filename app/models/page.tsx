@@ -142,7 +142,7 @@ function ModelCard({ model, index, region }: { model: FrontierModel; index: numb
         <div><dt>Frontier signal</dt><dd>{model.strength}</dd></div>
         <div><dt>Watch next</dt><dd>{model.watch}</dd></div>
       </dl>
-      <a href={model.source} target="_blank" rel="noreferrer">{model.sourceLabel} <span>↗</span></a>
+      <a href={model.source}>{model.sourceLabel} <span>↗</span></a>
     </article>
   );
 }

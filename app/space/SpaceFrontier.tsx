@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 type MissionState = "Verified" | "Changed" | "Watch";
 
@@ -118,6 +119,17 @@ export default function SpaceFrontier() {
         <p>A singularity is usually imagined as software accelerating in a data center. Space makes the same transition tangible: once light itself is too slow for real-time control, intelligence has to move into the vehicle.</p>
       </section>
 
+      <figure className="space-visual-threshold">
+        <Image
+          src="/space-frontier-og.png"
+          alt="A signal traveling from Earth toward an autonomous spacecraft in deep space"
+          width={1774}
+          height={887}
+          sizes="100vw"
+        />
+        <figcaption><span>Earth sends the instruction.</span><strong>Distance decides who must act.</strong></figcaption>
+      </figure>
+
       <section className="space-dashboard" aria-label="Workbook mission dashboard">
         <div className="dashboard-heading"><div><span>Planning wave</span><strong>2025–2035+</strong></div><p>The spreadsheet concentrates half its mission entries in 2026. These are schedule records, not a count of successful launches.</p></div>
         <div className="wave-chart">
@@ -141,7 +153,7 @@ export default function SpaceFrontier() {
       </section>
 
       <section className="space-intelligence">
-        <div><span className="section-number">03</span><p className="kicker">AI in space / 24 applications</p><h2>The machine is already<br /><em>leaving the loop.</em></h2><p>Navigation, scientific selection, anomaly detection, and robotics dominate the workbook’s AI catalog. In May 2026, NASA also reported the first geospatial foundation model deployed in orbit.</p><a href="https://science.nasa.gov/science-research/ai-foundation-model-in-orbit/" target="_blank" rel="noreferrer">NASA / Prithvi in orbit ↗</a></div>
+        <div><span className="section-number">03</span><p className="kicker">AI in space / 24 applications</p><h2>The machine is already<br /><em>leaving the loop.</em></h2><p>Navigation, scientific selection, anomaly detection, and robotics dominate the workbook’s AI catalog. In May 2026, NASA also reported the first geospatial foundation model deployed in orbit.</p><a href="https://science.nasa.gov/science-research/ai-foundation-model-in-orbit/">NASA / Prithvi in orbit ↗</a></div>
         <div className="ai-domain-grid">{aiDomains.map(([domain, count], index) => <article key={domain}><span>{String(index + 1).padStart(2, "0")}</span><strong>{count}</strong><p>{domain}</p></article>)}</div>
       </section>
 
@@ -155,15 +167,15 @@ export default function SpaceFrontier() {
       <section className="field-record" id="field-record">
         <div className="field-record-heading"><div><span className="section-number">05</span><p className="kicker">Refreshed field record</p></div><div><h2>A forecast should show<br /><em>its revisions.</em></h2><p>Workbook snapshot: April 2026. Observatory review: August 4, 2026. Dates move; the change itself is evidence.</p></div></div>
         <div className="record-tools"><div className="record-filters">{(["All", "Verified", "Changed", "Watch"] as const).map((item) => <button type="button" key={item} className={status === item ? "selected" : ""} onClick={() => setStatus(item)}>{item}</button>)}</div><label><span className="sr-only">Search mission updates</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search mission or agency" /></label></div>
-        <div className="update-list">{filteredUpdates.map((item) => <article key={item.mission}><div><span className={`record-state state-${item.state.toLowerCase()}`}>{item.state}</span><small>{item.actor}</small></div><h3>{item.mission}</h3><div className="record-change"><p><span>Workbook</span>{item.workbook}</p><b>→</b><p><span>Current field</span>{item.current}</p></div><p className="record-consequence">{item.consequence}</p><a href={item.source} target="_blank" rel="noreferrer" aria-label={`Open official source for ${item.mission}`}>Official source ↗</a></article>)}</div>
+        <div className="update-list">{filteredUpdates.map((item) => <article key={item.mission}><div><span className={`record-state state-${item.state.toLowerCase()}`}>{item.state}</span><small>{item.actor}</small></div><h3>{item.mission}</h3><div className="record-change"><p><span>Workbook</span>{item.workbook}</p><b>→</b><p><span>Current field</span>{item.current}</p></div><p className="record-consequence">{item.consequence}</p><a href={item.source} aria-label={`Open official source for ${item.mission}`}>Official source ↗</a></article>)}</div>
         {!filteredUpdates.length && <p className="record-empty">No records match this view.</p>}
       </section>
 
       <section className="space-method"><span>Method</span><p>The original workbook remains the baseline. This page aggregates all six tabs, checks selected high-consequence claims against official agency or company sources, and marks schedules as targets when they remain uncertain. Technology readiness levels are directional and may vary by implementation.</p><a href="/singularity/">Return to Event Horizon →</a></section>
 
-      <section className="book-bridge space-book-bridge"><p className="kicker">The conceptual doorway</p><h2>Distance does not end intelligence.<br />It changes who decides.</h2><p>Follow the autonomy problem back to the larger question of accelerating machine capability.</p><div><a className="primary-action light" href="/singularity/">Enter Event Horizon →</a><a className="text-action light-text" href="https://ashokmehan.com/">Explore the book ↗</a></div></section>
+      <section className="book-bridge space-book-bridge"><p className="kicker">The conceptual doorway</p><h2>Distance does not end intelligence.<br />It changes who decides.</h2><p>Follow the autonomy problem back to the larger question of accelerating machine capability.</p><div><Link className="primary-action light" href="/singularity/">Enter Event Horizon →</Link><a className="text-action light-text" href="https://ashokmehan.com/">Explore the book ↗</a></div></section>
 
-      <footer><div><span className="mark">MO</span><strong>Mehan Observatory</strong></div><p>An independent companion to <em>History&apos;s Future: The Singularity Is Here.</em></p><div className="footer-links"><a href="/singularity/">Event Horizon</a><a href="/models/">U.S. vs China</a><a href="/space/">Space frontier</a><a href="https://ashokmehan.com/essays/">Essays</a></div><small>© 2026 Ashok Mehan · Washington, D.C.</small></footer>
+      <footer><div><span className="mark">MO</span><strong>Mehan Observatory</strong></div><p>An independent companion to <em>History&apos;s Future: The Singularity Is Here.</em></p><div className="footer-links"><Link href="/singularity/">Event Horizon</Link><Link href="/models/">U.S. vs China</Link><Link href="/space/">Space frontier</Link><a href="https://ashokmehan.com/essays/">Essays</a></div><small>© 2026 Ashok Mehan · Washington, D.C.</small></footer>
     </main>
   );
 }

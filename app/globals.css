@@ -324,6 +324,12 @@ footer small { grid-column: 1/-1; padding-top: 24px; border-top: 1px solid var(-
 .space-thesis h2, .autonomy-heading h2, .field-record-heading h2 { margin: 0; font: 400 clamp(56px, 7vw, 106px)/.87 var(--font-display); letter-spacing: -.052em; }
 .space-thesis h2 em, .autonomy-heading h2 em, .field-record-heading h2 em { color: var(--signal); font-weight: 400; }
 .space-thesis > p:last-child { margin: 5px 0 0; color: var(--muted); font: 17px/1.55 var(--font-display); }
+.space-visual-threshold { margin: 0; position: relative; overflow: hidden; background: var(--night); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+.space-visual-threshold::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(9,11,11,.86), transparent 48%), linear-gradient(90deg, rgba(9,11,11,.18), transparent 38%); pointer-events: none; }
+.space-visual-threshold img { width: 100%; height: auto; min-height: 480px; display: block; object-fit: cover; }
+.space-visual-threshold figcaption { position: absolute; z-index: 1; left: 3.5vw; right: 3.5vw; bottom: 34px; display: flex; justify-content: space-between; align-items: end; gap: 30px; color: var(--light); }
+.space-visual-threshold figcaption span { text-transform: uppercase; font: 8px var(--font-mono); letter-spacing: .1em; color: var(--signal); }
+.space-visual-threshold figcaption strong { max-width: 700px; text-align: right; font: 400 clamp(28px, 4vw, 60px)/.95 var(--font-display); }
 
 .space-dashboard { padding: 50px 3.5vw 100px; background: var(--paper-deep); border-top: 1px solid var(--ink); }
 .dashboard-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; align-items: end; }
@@ -459,6 +465,9 @@ footer small { grid-column: 1/-1; padding-top: 24px; border-top: 1px solid var(-
   .space-hero-index { width: 160px; }
   .space-thesis { padding: 80px 20px; grid-template-columns: 34px 1fr; }
   .space-thesis .kicker, .space-thesis h2, .space-thesis > p:last-child { grid-column: 2; }
+  .space-visual-threshold img { min-height: 440px; object-position: 59% center; }
+  .space-visual-threshold figcaption { left: 20px; right: 20px; bottom: 22px; align-items: flex-start; flex-direction: column; }
+  .space-visual-threshold figcaption strong { max-width: 410px; text-align: left; }
   .space-dashboard, .autonomy-lab, .space-intelligence, .technology-field, .field-record { padding: 80px 20px; }
   .dashboard-heading, .actor-field { grid-template-columns: 1fr; }
   .wave-chart { height: 280px; gap: 4px; }
