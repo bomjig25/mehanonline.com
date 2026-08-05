@@ -2,24 +2,48 @@
 
 import { FormEvent, useState } from "react";
 
+const contactEndpoint = "https://ashokmehan.com/api/contact";
+
 export default function ContactForm() {
   const [status, setStatus] = useState("");
+  const [state, setState] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
     const data = new FormData(event.currentTarget);
-    const name = String(data.get("name") || "");
-    const email = String(data.get("email") || "");
-    const topic = String(data.get("topic") || "General inquiry");
-    const message = String(data.get("message") || "");
-    const subject = encodeURIComponent(`[Mehan Observatory] ${topic}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-    setStatus("Your email application is opening with this message ready to send.");
-    window.location.href = `mailto:ashok@ashokmehan.com?subject=${subject}&body=${body}`;
+    setState("sending");
+    setStatus("");
+
+    try {
+      const response = await fetch(contactEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"),
+          email: data.get("email"),
+          subject: `[Mehan Observatory] ${data.get("topic") || "General inquiry"}`,
+          message: data.get("message"),
+          website: data.get("website"),
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.error || "Could not send your message.");
+      setState("success");
+      setStatus(result.message || "Message sent — Ashok will be in touch.");
+      form.reset();
+    } catch (error) {
+      setState("error");
+      setStatus(error instanceof Error ? error.message : "Could not send your message. Please try again.");
+    }
   }
 
   return (
     <form className="contact-form" onSubmit={submit}>
+      <div className="form-honeypot" aria-hidden="true">
+        <label htmlFor="contact-website">Website</label>
+        <input id="contact-website" name="website" tabIndex={-1} autoComplete="off" />
+      </div>
       <div className="contact-field">
         <label htmlFor="contact-name">Your name</label>
         <input id="contact-name" name="name" autoComplete="name" required />
@@ -42,8 +66,10 @@ export default function ContactForm() {
         <label htmlFor="contact-message">Message</label>
         <textarea id="contact-message" name="message" rows={8} required />
       </div>
-      <button className="primary-action" type="submit">Prepare message →</button>
-      <p className="form-status" aria-live="polite">{status}</p>
+      <button className="primary-action" type="submit" disabled={state === "sending"}>
+        {state === "sending" ? "Sending…" : "Send message →"}
+      </button>
+      <p className={`form-status ${state}`} aria-live="polite">{status}</p>
     </form>
   );
 }

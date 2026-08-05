@@ -77,7 +77,7 @@ test("renders the Observatory contact form and homepage field-note signup", asyn
   assert.match(contactHtml, /<title>Contact — Mehan Observatory<\/title>/i);
   assert.match(contactHtml, /name="email"/);
   assert.match(contactHtml, /name="message"/);
-  assert.match(contactHtml, /Prepare message/);
+  assert.match(contactHtml, /Send message/);
 
   const homeResponse = await render("/");
   const homeHtml = await homeResponse.text();
