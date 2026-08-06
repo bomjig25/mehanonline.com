@@ -138,6 +138,12 @@ export default function Home() {
         <div><span>Primary sources</span><strong>{modelData.meta.sources_checked.toString().padStart(2, "0")}</strong><small>Source-backed records</small></div>
       </section>
 
+      <section className="forecast-home-band" aria-labelledby="forecast-home-title">
+        <div><span className="section-number">New</span><p className="kicker">Forecast ledger / living record</p></div>
+        <div><h2 id="forecast-home-title">What we expect.<br /><em>Where experts disagree.</em></h2><p>Six falsifiable forecasts place probability, deadlines, contrary evidence, and revision history on the same page.</p></div>
+        <a href="/forecast-ledger/">Open the ledger <span>→</span></a>
+      </section>
+
       <section className="section terminal-section" id="intelligence">
         <div className="section-heading">
           <div><span className="section-number">02</span><p className="kicker">Intelligence terminal</p></div>

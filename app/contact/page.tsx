@@ -5,6 +5,12 @@ import { SiteFooter, SiteHeader } from "../SiteChrome";
 export const metadata: Metadata = {
   title: "Contact — Mehan Observatory",
   description: "Contact Ashok Mehan about the Observatory, research collaboration, media, speaking, or History's Future.",
+  alternates: { canonical: "/contact/" },
+  openGraph: {
+    title: "Contact — Mehan Observatory",
+    description: "Questions, corrections, research collaborations, and considered disagreements are welcome.",
+    url: "https://mehanonline.com/contact/",
+  },
 };
 
 export default function ContactPage() {

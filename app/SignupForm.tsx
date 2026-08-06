@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 
 const subscribeEndpoint = "https://ashokmehan.com/api/subscribe";
 
-export default function SignupForm() {
+export default function SignupForm({ idPrefix = "signup" }: { idPrefix?: string }) {
   const [status, setStatus] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "success" | "error">("idle");
 
@@ -19,7 +19,7 @@ export default function SignupForm() {
       const response = await fetch(subscribeEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: data.get("email"), name: "", website: data.get("website") }),
+        body: JSON.stringify({ email: data.get("email"), name: data.get("name"), website: data.get("website") }),
       });
       const result = await response.json();
       if (!response.ok || !result.ok) throw new Error(result.error || "Could not complete signup.");
@@ -35,12 +35,16 @@ export default function SignupForm() {
   return (
     <form className="signup-form" onSubmit={submit}>
       <div className="form-honeypot" aria-hidden="true">
-        <label htmlFor="signup-website">Website</label>
-        <input id="signup-website" name="website" tabIndex={-1} autoComplete="off" />
+        <label htmlFor={`${idPrefix}-website`}>Website</label>
+        <input id={`${idPrefix}-website`} name="website" tabIndex={-1} autoComplete="off" />
       </div>
-      <label htmlFor="signup-email">Email address</label>
-      <div>
-        <input id="signup-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" required />
+      <div className="signup-name-field">
+        <label htmlFor={`${idPrefix}-name`}>Your name</label>
+        <input id={`${idPrefix}-name`} name="name" type="text" autoComplete="name" placeholder="First and last name" required />
+      </div>
+      <label htmlFor={`${idPrefix}-email`}>Email address</label>
+      <div className="signup-email-row">
+        <input id={`${idPrefix}-email`} name="email" type="email" autoComplete="email" placeholder="you@example.com" required />
         <button type="submit" disabled={state === "sending"}>{state === "sending" ? "Signing up…" : "Sign up →"}</button>
       </div>
       <small>We&apos;ll send a confirmation link. No spam, and you can unsubscribe at any time.</small>

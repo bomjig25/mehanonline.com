@@ -55,12 +55,13 @@ test("server-renders Event Horizon as a connected flagship field guide", async (
 });
 
 test("keeps the full Observatory footer navigation consistent across routes", async () => {
-  for (const pathname of ["/", "/singularity/", "/models/", "/space/", "/contact/"]) {
+  for (const pathname of ["/", "/forecast-ledger/", "/singularity/", "/models/", "/space/", "/contact/"]) {
     const response = await render(pathname);
     assert.equal(response.status, 200);
     const html = await response.text();
 
     assert.match(html, /aria-label="Footer navigation"/);
+    assert.match(html, /href="\/forecast-ledger\/"[^>]*>Forecast ledger<\/a>/);
     assert.match(html, /href="\/singularity\/"[^>]*>Event Horizon<\/a>/);
     assert.match(html, /href="\/models\/"[^>]*>U\.S\. vs China<\/a>/);
     assert.match(html, /href="\/space\/"[^>]*>Space frontier<\/a>/);
@@ -82,6 +83,22 @@ test("renders the Observatory contact form and homepage field-note signup", asyn
   const homeResponse = await render("/");
   const homeHtml = await homeResponse.text();
   assert.match(homeHtml, /Observatory field notes/);
+  assert.match(homeHtml, /What we expect/);
   assert.match(homeHtml, /Read manuscript excerpts &amp; op-eds/);
   assert.doesNotMatch(homeHtml, />Essays<\/a>/);
+});
+
+test("renders the interactive forecast ledger with search metadata", async () => {
+  const response = await render("/forecast-ledger/");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+
+  assert.match(html, /<title>AI Forecast Ledger &amp; Disagreement Map — Mehan Observatory<\/title>/i);
+  assert.match(html, /The probability field/);
+  assert.match(html, /The disagreement map/);
+  assert.match(html, /A week of useful work/);
+  assert.match(html, /application\/ld\+json/);
+  assert.match(html, /DataFeed/);
+  assert.match(html, /name="name"/);
+  assert.match(html, /name="email"/);
 });

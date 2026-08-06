@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(origin),
   title: "Mehan Observatory — Observe the Accelerating Future",
   description: "The interactive companion to History's Future. Track frontier intelligence, explore the evidence, and test the scales reshaping civilization.",
+  keywords: ["artificial intelligence", "technological singularity", "AI forecasts", "frontier AI models", "AI autonomy", "AI evidence"],
+  alternates: { canonical: "/" },
+  authors: [{ name: "Ashok Mehan", url: "https://ashokmehan.com/" }],
+  creator: "Ashok Mehan",
+  publisher: "Mehan Observatory",
   openGraph: {
     title: "Mehan Observatory",
     description: "Observe the forces reshaping intelligence.",
