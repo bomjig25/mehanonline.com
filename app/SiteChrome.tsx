@@ -1,9 +1,10 @@
 import Link from "next/link";
 
-type RouteKey = "home" | "forecast" | "singularity" | "models" | "space" | "contact";
+type RouteKey = "home" | "forecast" | "dossier" | "singularity" | "models" | "space" | "contact";
 
 const navigation = [
   { label: "Forecast ledger", href: "/forecast-ledger/", key: "forecast" },
+  { label: "Dossiers", href: "/dossiers/week-of-work/", key: "dossier" },
   { label: "Event Horizon", href: "/singularity/", key: "singularity" },
   { label: "U.S. vs China", href: "/models/", key: "models" },
   { label: "Space frontier", href: "/space/", key: "space" },

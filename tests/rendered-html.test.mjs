@@ -55,13 +55,14 @@ test("server-renders Event Horizon as a connected flagship field guide", async (
 });
 
 test("keeps the full Observatory footer navigation consistent across routes", async () => {
-  for (const pathname of ["/", "/forecast-ledger/", "/singularity/", "/models/", "/space/", "/contact/"]) {
+  for (const pathname of ["/", "/forecast-ledger/", "/dossiers/week-of-work/", "/singularity/", "/models/", "/space/", "/contact/"]) {
     const response = await render(pathname);
     assert.equal(response.status, 200);
     const html = await response.text();
 
     assert.match(html, /aria-label="Footer navigation"/);
     assert.match(html, /href="\/forecast-ledger\/"[^>]*>Forecast ledger<\/a>/);
+    assert.match(html, /href="\/dossiers\/week-of-work\/"[^>]*>Dossiers<\/a>/);
     assert.match(html, /href="\/singularity\/"[^>]*>Event Horizon<\/a>/);
     assert.match(html, /href="\/models\/"[^>]*>U\.S\. vs China<\/a>/);
     assert.match(html, /href="\/space\/"[^>]*>Space frontier<\/a>/);
@@ -99,6 +100,23 @@ test("renders the interactive forecast ledger with search metadata", async () =>
   assert.match(html, /A week of useful work/);
   assert.match(html, /application\/ld\+json/);
   assert.match(html, /DataFeed/);
+  assert.match(html, /name="name"/);
+  assert.match(html, /name="email"/);
+});
+
+test("renders the week-of-work disagreement dossier with evidence and signup", async () => {
+  const response = await render("/dossiers/week-of-work/");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+
+  assert.match(html, /<title>Can AI Agents Complete a Week of Work\? — Disagreement Dossier<\/title>/i);
+  assert.match(html, /Disagreement dossier 01/i);
+  assert.match(html, /Required success rate/);
+  assert.match(html, /Workplace messiness/);
+  assert.match(html, /Observatory assessment/);
+  assert.match(html, /62/);
+  assert.match(html, /application\/ld\+json/);
+  assert.match(html, /Article/);
   assert.match(html, /name="name"/);
   assert.match(html, /name="email"/);
 });

@@ -77,6 +77,7 @@ export default function ForecastLedger() {
             <h3>{selected.title}</h3>
             <p>{selected.proposition}</p>
             <div className="forecast-change"><span>Prior assessment</span><b>{selected.previousProbability}%</b><i>→</i><span>Current</span><b>{selected.probability}%</b></div>
+            {selected.id === "week-of-work" && <a className="forecast-dossier-link" href="/dossiers/week-of-work/">Read Disagreement Dossier 01 →</a>}
           </div>
           <div className="readout-explainer">
             <span>In plain language</span>

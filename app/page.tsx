@@ -141,7 +141,7 @@ export default function Home() {
       <section className="forecast-home-band" aria-labelledby="forecast-home-title">
         <div><span className="section-number">New</span><p className="kicker">Forecast ledger / living record</p></div>
         <div><h2 id="forecast-home-title">What we expect.<br /><em>Where experts disagree.</em></h2><p>Six falsifiable forecasts place probability, deadlines, contrary evidence, and revision history on the same page.</p></div>
-        <a href="/forecast-ledger/">Open the ledger <span>→</span></a>
+        <div className="forecast-home-links"><a href="/forecast-ledger/">Open the ledger <span>→</span></a><a href="/dossiers/week-of-work/">Read Dossier 01 <span>→</span></a></div>
       </section>
 
       <section className="section terminal-section" id="intelligence">
