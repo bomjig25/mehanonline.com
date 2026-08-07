@@ -143,7 +143,7 @@ function ModelCard({ model, index, region }: { model: FrontierModel; index: numb
         <div><dt>Frontier signal</dt><dd>{model.strength}</dd></div>
         <div><dt>Watch next</dt><dd>{model.watch}</dd></div>
       </dl>
-      <a href={model.source} target="_blank" rel="noreferrer">{model.sourceLabel}</a>
+      <a href={model.source}>{model.sourceLabel}</a>
     </article>
   );
 }
@@ -238,7 +238,7 @@ export default function ModelsPage() {
         <h2>The models are the instruments.<br />The future is the subject.</h2>
         <p><em>History&apos;s Future</em> places this technological race inside the longer human story.</p>
         <div>
-          <a className="primary-action light" href="https://ashokmehan.com/" target="_blank" rel="noreferrer">Explore the book</a>
+          <a className="primary-action light" href="https://ashokmehan.com/">Explore the book</a>
           <Link className="text-action light-text" href="/">Return to the Observatory →</Link>
         </div>
       </section>

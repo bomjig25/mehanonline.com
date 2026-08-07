@@ -93,7 +93,7 @@ export default function WeekOfWorkDossierPage() {
 
         <section className="dossier-sources" aria-labelledby="dossier-sources-title">
           <div><span className="section-number">07</span><p className="kicker">Evidence record</p><h2 id="dossier-sources-title">Read past<br /><em>the headline.</em></h2></div>
-          <div><p>These are the primary and independent reports used in this assessment. Measurements belong to their publishers; the synthesis and forecast belong to Mehan Observatory.</p>{citations.map((source) => <a href={source.href} target="_blank" rel="noreferrer" key={source.href}><span>{source.publisher} · {source.date} ↗</span><strong>{source.title}</strong><p>{source.note}</p></a>)}</div>
+          <div><p>These are the primary and independent reports used in this assessment. Measurements belong to their publishers; the synthesis and forecast belong to Mehan Observatory.</p>{citations.map((source) => <a href={source.href} key={source.href}><span>{source.publisher} · {source.date}</span><strong>{source.title}</strong><p>{source.note}</p></a>)}</div>
         </section>
 
         <section className="signup-band dossier-signup" aria-labelledby="dossier-signup-title"><div><p className="kicker">The dossier changes when the evidence does</p><h2 id="dossier-signup-title">Follow the<br /><em>disagreement.</em></h2><p>Receive new dossiers, forecast revisions, and the evidence that changed our mind.</p></div><SignupForm idPrefix="dossier-signup" /></section>

@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import SignupForm from "../SignupForm";
+import { revealRangeResult, revealResult } from "../interactionNavigation";
 import { forecasts, sources, type ForecastDomain } from "./forecastData";
 
 const domains: Array<"All" | ForecastDomain> = ["All", "Capability", "Science", "Economics", "Geopolitics", "Institutions", "Autonomy"];
@@ -12,6 +13,8 @@ export default function ForecastLedger() {
   const [domain, setDomain] = useState<(typeof domains)[number]>("All");
   const [selectedId, setSelectedId] = useState(forecasts[0].id);
   const [readerEstimate, setReaderEstimate] = useState(forecasts[0].probability);
+  const forecastReadoutRef = useRef<HTMLDivElement>(null);
+  const readerDifferenceRef = useRef<HTMLDivElement>(null);
 
   const visible = useMemo(
     () => domain === "All" ? forecasts : forecasts.filter((forecast) => forecast.domain === domain),
@@ -25,6 +28,7 @@ export default function ForecastLedger() {
     if (!forecast) return;
     setSelectedId(id);
     setReaderEstimate(forecast.probability);
+    revealResult(forecastReadoutRef, "start");
   }
 
   function filterDomain(nextDomain: (typeof domains)[number]) {
@@ -70,7 +74,7 @@ export default function ForecastLedger() {
           </div>
         </div>
 
-        <div className="forecast-readout" aria-live="polite">
+        <div className="forecast-readout" ref={forecastReadoutRef} aria-live="polite">
           <div className="readout-summary">
             <div><span>{selected.number} / {selected.domain}</span><small>{selected.status} · review {selected.review}</small></div>
             <strong>{selected.probability}<sup>%</sup></strong>
@@ -109,8 +113,8 @@ export default function ForecastLedger() {
         <div><span className="section-number">03</span><p className="kicker">Calibrate your judgment</p><h2 id="reader-estimate-title">Where do<br /><em>you stand?</em></h2></div>
         <div className="reader-control">
           <label htmlFor="reader-estimate"><span>Your probability for {selected.number}</span><strong>{readerEstimate}%</strong></label>
-          <input id="reader-estimate" type="range" min="0" max="100" step="1" value={readerEstimate} onChange={(event) => setReaderEstimate(Number(event.target.value))} />
-          <div className="reader-difference">
+          <input id="reader-estimate" type="range" min="0" max="100" step="1" value={readerEstimate} onChange={(event) => setReaderEstimate(Number(event.target.value))} onPointerUp={() => revealResult(readerDifferenceRef)} onKeyUp={(event) => revealRangeResult(event, readerDifferenceRef)} />
+          <div className="reader-difference" ref={readerDifferenceRef} aria-live="polite">
             <span>Observatory</span><b>{selected.probability}%</b><i>vs.</i><span>Your estimate</span><b>{readerEstimate}%</b>
           </div>
           <p>{delta === 0 ? "You are exactly aligned with the current Observatory assessment." : `You are ${Math.abs(delta)} points ${delta > 0 ? "more confident" : "more skeptical"} than the Observatory.`}</p>
@@ -135,7 +139,7 @@ export default function ForecastLedger() {
         <div><span className="section-number">05</span><p className="kicker">Evidence desk</p><h2 id="forecast-sources-title">Read the record<br /><em>beneath the judgment.</em></h2></div>
         <div>
           <p>The selected forecast draws on these primary or independent scientific sources. Links open the underlying evidence; probabilities and interpretations remain the Observatory&apos;s own.</p>
-          {selectedSources.map((source) => <a href={source.href} target="_blank" rel="noreferrer" key={source.id}><span>{source.publisher}</span><strong>{source.label}</strong></a>)}
+          {selectedSources.map((source) => <a href={source.href} key={source.id}><span>{source.publisher}</span><strong>{source.label}</strong></a>)}
         </div>
       </section>
 

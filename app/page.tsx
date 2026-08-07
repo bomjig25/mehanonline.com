@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import modelData from "../ai-intelligence-terminal-v2/data/models.json";
 import SignupForm from "./SignupForm";
 import { SiteFooter, SiteHeader } from "./SiteChrome";
+import { revealRangeResult, revealResult } from "./interactionNavigation";
 
 type ScoreKey = "reasoning" | "coding" | "agents" | "multimodal" | "efficiency";
 type Model = (typeof modelData.models)[number];
@@ -65,6 +66,9 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([models[0].id, models[4].id]);
   const [machineSpeed, setMachineSpeed] = useState(1000);
+  const modelTableRef = useRef<HTMLDivElement>(null);
+  const comparisonRef = useRef<HTMLElement>(null);
+  const machineResultRef = useRef<HTMLDivElement>(null);
 
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
@@ -80,12 +84,13 @@ export default function Home() {
   ).length;
   const machineYears = Math.round((machineSpeed * 1) / 8.76) / 100;
 
-  function toggleModel(id: string) {
+  function toggleModel(id: string, reveal = false) {
     setSelected((current) => {
       if (current.includes(id)) return current.filter((item) => item !== id);
       if (current.length >= 3) return [...current.slice(1), id];
       return [...current, id];
     });
+    if (reveal) revealResult(comparisonRef);
   }
 
   return (
@@ -161,12 +166,12 @@ export default function Home() {
             <span>{models.length} records / {modelData.meta.sources_checked} sources</span>
             <label>
               <span className="sr-only">Search models</span>
-              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search models or strengths" />
+              <input value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") revealResult(modelTableRef, "start"); }} placeholder="Search models or strengths" />
             </label>
           </div>
 
           <div className="terminal-layout">
-            <div className="model-table-wrap">
+            <div className="model-table-wrap" ref={modelTableRef}>
               <div className="model-table-head">
                 <span>Compare</span><span>Model / release</span><span>Context</span><span>Signal profile</span><span>Source</span>
               </div>
@@ -180,7 +185,7 @@ export default function Home() {
                         type="button"
                         aria-pressed={isSelected}
                         aria-label={`${isSelected ? "Remove" : "Add"} ${model.model} ${isSelected ? "from" : "to"} comparison`}
-                        onClick={() => toggleModel(model.id)}
+                        onClick={() => toggleModel(model.id, true)}
                       >
                         {isSelected ? "×" : "+"}
                       </button>
@@ -191,14 +196,14 @@ export default function Home() {
                           <div key={key}><span>{label}</span><i><b style={{ width: `${model.scores[key]}%` }} /></i><em>{model.scores[key]}</em></div>
                         ))}
                       </div>
-                      <a href={model.source} target="_blank" rel="noreferrer" aria-label={`Open primary source for ${model.model}`} />
+                      <a href={model.source} aria-label={`Open primary source for ${model.model}; use Back to return to Mehan Observatory`} />
                     </article>
                   );
                 })}
               </div>
             </div>
 
-            <aside className="comparison-panel">
+            <aside className="comparison-panel" ref={comparisonRef} aria-live="polite">
               <div className="comparison-head"><span>Comparison tray</span><strong>{compared.length} / 3</strong></div>
               {compared.map((model) => (
                 <article className="compare-card" key={model.id}>
@@ -224,7 +229,7 @@ export default function Home() {
         </div>
         <div className="ledger-list">
           {essays.map((essay) => (
-            <a className="ledger-entry has-external-icon" key={essay.number} href={essay.href} target="_blank" rel="noreferrer">
+            <a className="ledger-entry has-external-icon" key={essay.number} href={essay.href}>
               <span className="entry-number">{essay.number}</span>
               <div className="entry-meta"><span>{essay.tag}</span><time>{essay.date}</time></div>
               <div><h3>{essay.title}</h3><p>{essay.finding}</p></div>
@@ -251,18 +256,20 @@ export default function Home() {
               step="10"
               value={machineSpeed}
               onChange={(event) => setMachineSpeed(Number(event.target.value))}
+              onPointerUp={() => revealResult(machineResultRef)}
+              onKeyUp={(event) => revealRangeResult(event, machineResultRef)}
             />
             <div className="range-labels"><span>10×</span><span>100,000×</span></div>
           </div>
           <div className="time-comparison">
             <div><span>One human workday</span><strong>8</strong><small>hours</small></div>
             <div className="equals">becomes</div>
-            <div className="machine-result"><span>Equivalent machine work</span><strong>{machineYears.toLocaleString()}</strong><small>human-years</small></div>
+            <div className="machine-result" ref={machineResultRef} aria-live="polite"><span>Equivalent machine work</span><strong>{machineYears.toLocaleString()}</strong><small>human-years</small></div>
           </div>
           <p className="lab-caption">
             A scale model, not a forecast. It reveals why institutions built around meetings, terms, and annual budgets struggle to govern systems that can iterate thousands of times faster.
           </p>
-          <a href="https://ashokmehan.com/essays/essay-004-the-clock-speed-problem.html" target="_blank" rel="noreferrer">
+          <a href="https://ashokmehan.com/essays/essay-004-the-clock-speed-problem.html">
             Read “The Clock Speed Problem”
           </a>
         </div>
@@ -273,9 +280,9 @@ export default function Home() {
         <h2>From the birth of the universe<br />to the birth of artificial intelligence.</h2>
         <p>The Observatory measures the change. <em>History&apos;s Future</em> tells the larger story—and these manuscript op-eds test its most provocative ideas in public.</p>
         <div className="history-future-links">
-          <a className="primary-action light" href="https://ashokmehan.com/" target="_blank" rel="noreferrer">Explore the book</a>
-          <a className="text-action light-text" href="https://ashokmehan.com/essays/" target="_blank" rel="noreferrer">Read manuscript excerpts &amp; op-eds</a>
-          <a className="text-action light-text" href="https://ashokmehan.com/mehan-dispatch/dispatch-index.html" target="_blank" rel="noreferrer">Read the Mehan Dispatch</a>
+          <a className="primary-action light" href="https://ashokmehan.com/">Explore the book</a>
+          <a className="text-action light-text" href="https://ashokmehan.com/essays/">Read manuscript excerpts &amp; op-eds</a>
+          <a className="text-action light-text" href="https://ashokmehan.com/mehan-dispatch/dispatch-index.html">Read the Mehan Dispatch</a>
         </div>
       </section>
 

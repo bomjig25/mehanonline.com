@@ -250,7 +250,7 @@ export default function SingularityPage() {
         <h2>The horizon is a question.<br />The future is a responsibility.</h2>
         <p><em>History&apos;s Future</em> places artificial intelligence inside the full arc of human development.</p>
         <div>
-          <a className="primary-action light" href="https://ashokmehan.com/" target="_blank" rel="noreferrer">Explore the book</a>
+          <a className="primary-action light" href="https://ashokmehan.com/">Explore the book</a>
           <Link className="text-action light-text" href="/">Return to the Observatory →</Link>
         </div>
       </section>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { revealRangeResult, revealResult } from "../../interactionNavigation";
 
 const horizons = [
   { label: "GPT-4o", date: "May 2024", p50: 0.1, p80: 0.05, note: "6 min at 50%" },
@@ -20,13 +21,15 @@ const messinessStates = [
 export default function DossierInteractive() {
   const [reliability, setReliability] = useState<50 | 80>(80);
   const [messiness, setMessiness] = useState(35);
+  const horizonChartRef = useRef<HTMLDivElement>(null);
+  const messinessReadoutRef = useRef<HTMLDivElement>(null);
   const state = useMemo(() => messinessStates.find((item) => messiness <= item.max) || messinessStates.at(-1)!, [messiness]);
 
   return <>
     <section className="dossier-horizon" id="instrument" aria-labelledby="horizon-title">
       <div className="dossier-section-heading"><span className="section-number">02</span><div><p className="kicker">The measured horizon</p><h2 id="horizon-title">How long can<br /><em>an agent keep going?</em></h2><p>METR defines a task horizon by how long the task takes a human expert—not by how long the model runs. Change the reliability standard to see why one headline number is not enough.</p></div></div>
-      <div className="reliability-control" role="group" aria-label="Choose reliability threshold"><span>Required success rate</span>{([50, 80] as const).map((value) => <button type="button" className={reliability === value ? "active" : ""} aria-pressed={reliability === value} onClick={() => setReliability(value)} key={value}>{value}%</button>)}</div>
-      <div className="horizon-chart" aria-label={`Task completion horizons at ${reliability}% reliability`}>
+      <div className="reliability-control" role="group" aria-label="Choose reliability threshold"><span>Required success rate</span>{([50, 80] as const).map((value) => <button type="button" className={reliability === value ? "active" : ""} aria-pressed={reliability === value} onClick={() => { setReliability(value); revealResult(horizonChartRef, "start"); }} key={value}>{value}%</button>)}</div>
+      <div className="horizon-chart" ref={horizonChartRef} aria-live="polite" aria-label={`Task completion horizons at ${reliability}% reliability`}>
         <div className="horizon-axis" aria-hidden="true"><span>6 min</span><span>1 h</span><span>4 h</span><span>12 h</span><span>40 h / week</span></div>
         {horizons.map((item) => {
           const hours = reliability === 50 ? item.p50 : item.p80;
@@ -41,9 +44,9 @@ export default function DossierInteractive() {
       <div><span className="section-number">03</span><p className="kicker">The messiness test</p><h2 id="messiness-title">Move from a test<br /><em>into the world.</em></h2><p>This explanatory model is not a reported benchmark. It reveals which assumptions disappear when “task completion” becomes “useful work.”</p></div>
       <div className="messiness-console">
         <label htmlFor="messiness"><span>Workplace messiness</span><strong>{messiness}<small>/100</small></strong></label>
-        <input id="messiness" type="range" min="0" max="100" value={messiness} onChange={(event) => setMessiness(Number(event.target.value))} />
+        <input id="messiness" type="range" min="0" max="100" value={messiness} onChange={(event) => setMessiness(Number(event.target.value))} onPointerUp={() => revealResult(messinessReadoutRef)} onKeyUp={(event) => revealRangeResult(event, messinessReadoutRef)} />
         <div className="messiness-ticks" aria-hidden="true"><span>Specified</span><span>Ambiguous</span><span>Open world</span></div>
-        <div className="messiness-readout" aria-live="polite"><div><span>Illustrative dependable horizon</span><strong>{state.hours < 1 ? `${state.hours * 60} min` : `${state.hours} h`}</strong></div><div><h3>{state.title}</h3><p>{state.text}</p></div></div>
+        <div className="messiness-readout" ref={messinessReadoutRef} aria-live="polite"><div><span>Illustrative dependable horizon</span><strong>{state.hours < 1 ? `${state.hours * 60} min` : `${state.hours} h`}</strong></div><div><h3>{state.title}</h3><p>{state.text}</p></div></div>
         <ul><li className={messiness > 20 ? "on" : ""}>Incomplete specification</li><li className={messiness > 40 ? "on" : ""}>Human dependencies</li><li className={messiness > 60 ? "on" : ""}>Changing requirements</li><li className={messiness > 80 ? "on" : ""}>Consequential errors</li></ul>
       </div>
     </section>

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 async function render(pathname = "/") {
@@ -119,4 +120,31 @@ test("renders the week-of-work disagreement dossier with evidence and signup", a
   assert.match(html, /Article/);
   assert.match(html, /name="name"/);
   assert.match(html, /name="email"/);
+});
+
+test("keeps outbound links in browser history instead of opening stranded tabs", async () => {
+  for (const pathname of ["/", "/forecast-ledger/", "/dossiers/week-of-work/", "/singularity/", "/models/", "/space/"]) {
+    const response = await render(pathname);
+    const html = await response.text();
+    const outboundLinks = html.match(/<a\b[^>]*href="https?:\/\/[^\"]+"[^>]*>/g) ?? [];
+    assert.ok(outboundLinks.length > 0, `${pathname} should contain at least one outbound source link`);
+    for (const link of outboundLinks) assert.doesNotMatch(link, /target="_blank"/);
+  }
+});
+
+test("wires interactive controls to reveal their updated result", async () => {
+  const helper = await readFile(new URL("../app/interactionNavigation.ts", import.meta.url), "utf8");
+  assert.match(helper, /scrollIntoView/);
+  assert.match(helper, /prefers-reduced-motion/);
+
+  for (const sourcePath of [
+    "../app/page.tsx",
+    "../app/forecast-ledger/ForecastLedger.tsx",
+    "../app/dossiers/week-of-work/DossierInteractive.tsx",
+    "../app/space/SpaceFrontier.tsx",
+  ]) {
+    const source = await readFile(new URL(sourcePath, import.meta.url), "utf8");
+    assert.match(source, /revealResult/);
+    assert.match(source, /aria-live="polite"/);
+  }
 });
