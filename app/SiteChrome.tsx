@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-type RouteKey = "home" | "forecast" | "dossier" | "singularity" | "models" | "space" | "contact";
+type RouteKey = "home" | "forecast" | "dossier" | "singularity" | "models" | "space" | "about" | "contact";
 
 const navigation = [
   { label: "Forecast ledger", href: "/forecast-ledger/", key: "forecast" },
@@ -8,6 +8,7 @@ const navigation = [
   { label: "Event Horizon", href: "/singularity/", key: "singularity" },
   { label: "U.S. vs China", href: "/models/", key: "models" },
   { label: "Space frontier", href: "/space/", key: "space" },
+  { label: "About", href: "/about/", key: "about" },
   { label: "China monitor", href: "/#intelligence", key: "home" },
   { label: "Laboratory", href: "/#laboratory", key: "home" },
 ] as const;

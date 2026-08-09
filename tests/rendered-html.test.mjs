@@ -56,7 +56,7 @@ test("server-renders Event Horizon as a connected flagship field guide", async (
 });
 
 test("keeps the full Observatory footer navigation consistent across routes", async () => {
-  for (const pathname of ["/", "/forecast-ledger/", "/dossiers/week-of-work/", "/singularity/", "/models/", "/space/", "/contact/"]) {
+  for (const pathname of ["/", "/forecast-ledger/", "/dossiers/week-of-work/", "/singularity/", "/models/", "/space/", "/about/", "/contact/"]) {
     const response = await render(pathname);
     assert.equal(response.status, 200);
     const html = await response.text();
@@ -67,10 +67,25 @@ test("keeps the full Observatory footer navigation consistent across routes", as
     assert.match(html, /href="\/singularity\/"[^>]*>Event Horizon<\/a>/);
     assert.match(html, /href="\/models\/"[^>]*>U\.S\. vs China<\/a>/);
     assert.match(html, /href="\/space\/"[^>]*>Space frontier<\/a>/);
+    assert.match(html, /href="\/about\/"[^>]*>About<\/a>/);
     assert.match(html, /href="\/#intelligence"[^>]*>China monitor<\/a>/);
     assert.match(html, /href="\/#laboratory"[^>]*>Laboratory<\/a>/);
     assert.match(html, /href="\/contact\/"[^>]*>Contact<\/a>/);
   }
+});
+
+test("renders Ashok Mehan's live Gravatar profile card", async () => {
+  const response = await render("/about/");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+
+  assert.match(html, /<title>About Ashok Mehan — Mehan Observatory<\/title>/i);
+  assert.match(html, /Behind the/);
+  assert.match(html, /https:\/\/gravatar\.com\/bomjig25\.card/);
+  assert.match(html, /width="415"/);
+  assert.match(html, /height="228"/);
+  assert.match(html, /application\/ld\+json/);
+  assert.match(html, /Meet Ashok/);
 });
 
 test("renders the Observatory contact form and homepage field-note signup", async () => {

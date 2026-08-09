@@ -281,6 +281,7 @@ export default function Home() {
         <p>The Observatory measures the change. <em>History&apos;s Future</em> tells the larger story—and these manuscript op-eds test its most provocative ideas in public.</p>
         <div className="history-future-links">
           <a className="primary-action light" href="https://ashokmehan.com/">Explore the book</a>
+          <a className="text-action light-text" href="/about/">Meet Ashok <span>→</span></a>
           <a className="text-action light-text" href="https://ashokmehan.com/essays/">Read manuscript excerpts &amp; op-eds</a>
           <a className="text-action light-text" href="https://ashokmehan.com/mehan-dispatch/dispatch-index.html">Read the Mehan Dispatch</a>
         </div>
