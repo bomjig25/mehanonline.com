@@ -58,10 +58,11 @@ export default function AboutPage() {
             <iframe
               className="gravatar-profile-card"
               src="https://gravatar.com/bomjig25.card"
-              width="415"
-              height="228"
+              width="520"
+              height="320"
               title="Ashok Mehan's Gravatar profile card"
               loading="lazy"
+              scrolling="no"
             />
           </div>
           <p>Profile content is served directly by Gravatar.</p>
