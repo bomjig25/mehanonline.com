@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pages = [
     { path: "", priority: 1, changeFrequency: "weekly" as const },
     { path: "/forecast-ledger/", priority: 0.95, changeFrequency: "monthly" as const },
+    { path: "/work-horizon/", priority: 0.95, changeFrequency: "monthly" as const },
     { path: "/dossiers/week-of-work/", priority: 0.95, changeFrequency: "monthly" as const },
     { path: "/singularity/", priority: 0.9, changeFrequency: "monthly" as const },
     { path: "/models/", priority: 0.85, changeFrequency: "monthly" as const },
@@ -16,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return pages.map((page) => ({
     url: `${base}${page.path}`,
-    lastModified: new Date("2026-08-06"),
+    lastModified: new Date("2026-08-09"),
     changeFrequency: page.changeFrequency,
     priority: page.priority,
   }));

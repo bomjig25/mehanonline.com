@@ -56,13 +56,14 @@ test("server-renders Event Horizon as a connected flagship field guide", async (
 });
 
 test("keeps page destinations in the footer navigation across routes", async () => {
-  for (const pathname of ["/", "/forecast-ledger/", "/dossiers/week-of-work/", "/singularity/", "/models/", "/space/", "/about/", "/contact/"]) {
+  for (const pathname of ["/", "/forecast-ledger/", "/work-horizon/", "/dossiers/week-of-work/", "/singularity/", "/models/", "/space/", "/about/", "/contact/"]) {
     const response = await render(pathname);
     assert.equal(response.status, 200);
     const html = await response.text();
 
     assert.match(html, /aria-label="Footer navigation"/);
     assert.match(html, /href="\/forecast-ledger\/"[^>]*>Forecast ledger<\/a>/);
+    assert.match(html, /href="\/work-horizon\/"[^>]*>Work Horizon<\/a>/);
     assert.match(html, /href="\/dossiers\/week-of-work\/"[^>]*>Dossiers<\/a>/);
     assert.match(html, /href="\/singularity\/"[^>]*>Event Horizon<\/a>/);
     assert.match(html, /href="\/models\/"[^>]*>U\.S\. vs China<\/a>/);
@@ -149,8 +150,24 @@ test("renders the week-of-work disagreement dossier with evidence and signup", a
   assert.match(html, /name="email"/);
 });
 
+test("renders the Work Horizon Lab as a connected task-level instrument", async () => {
+  const response = await render("/work-horizon/");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+
+  assert.match(html, /<title>Work Horizon Lab — Mehan Observatory<\/title>/i);
+  assert.match(html, /How much of a job/);
+  assert.match(html, /Required reliability/);
+  assert.match(html, /Workplace friction/);
+  assert.match(html, /Software Developers/);
+  assert.match(html, /Analyze user needs and software requirements/);
+  assert.match(html, /not an automation probability/i);
+  assert.match(html, /application\/ld\+json/);
+  assert.match(html, /Dataset/);
+});
+
 test("keeps outbound links in browser history instead of opening stranded tabs", async () => {
-  for (const pathname of ["/", "/forecast-ledger/", "/dossiers/week-of-work/", "/singularity/", "/models/", "/space/"]) {
+  for (const pathname of ["/", "/forecast-ledger/", "/work-horizon/", "/dossiers/week-of-work/", "/singularity/", "/models/", "/space/"]) {
     const response = await render(pathname);
     const html = await response.text();
     const outboundLinks = html.match(/<a\b[^>]*href="https?:\/\/[^\"]+"[^>]*>/g) ?? [];
@@ -169,6 +186,7 @@ test("wires interactive controls to reveal their updated result", async () => {
     "../app/forecast-ledger/ForecastLedger.tsx",
     "../app/dossiers/week-of-work/DossierInteractive.tsx",
     "../app/space/SpaceFrontier.tsx",
+    "../app/work-horizon/WorkHorizonLab.tsx",
   ]) {
     const source = await readFile(new URL(sourcePath, import.meta.url), "utf8");
     assert.match(source, /revealResult/);

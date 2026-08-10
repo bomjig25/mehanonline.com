@@ -152,6 +152,12 @@ export default function Home() {
         <div className="forecast-home-links"><a href="/forecast-ledger/">Open the ledger <span>→</span></a><a href="/dossiers/week-of-work/">Read Dossier 01 <span>→</span></a></div>
       </section>
 
+      <section className="work-home-band" aria-labelledby="work-home-title">
+        <div><span className="section-number">New</span><p className="kicker">Work Horizon Lab / applied frontier</p></div>
+        <div><h2 id="work-home-title">A job is a bundle<br />of <em>unequal tasks.</em></h2><p>Explore 60 official task statements across twelve occupations, then raise the reliability bar and add the friction of real workplaces.</p></div>
+        <a href="/work-horizon/">Test an occupation <span>→</span></a>
+      </section>
+
       <section className="section terminal-section" id="intelligence">
         <div className="section-heading">
           <div><span className="section-number">02</span><p className="kicker">Intelligence terminal</p></div>
