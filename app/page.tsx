@@ -95,7 +95,10 @@ export default function Home() {
 
   return (
     <main>
-      <SiteHeader active="home" />
+      <SiteHeader active="home" sections={[
+        { label: "China monitor", href: "#intelligence" },
+        { label: "Laboratory", href: "#laboratory" },
+      ]} />
 
       <section className="hero" id="top">
         <div className="orbit orbit-one" aria-hidden="true" />

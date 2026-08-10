@@ -53,7 +53,13 @@ export default function ForecastLedgerPage() {
   return (
     <main className="forecast-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      <SiteHeader active="forecast" />
+      <SiteHeader active="forecast" sections={[
+        { label: "Probability field", href: "#probability-field" },
+        { label: "Disagreement map", href: "#disagreement-map" },
+        { label: "Your estimate", href: "#reader-calibration" },
+        { label: "Forecast records", href: "#forecast-records" },
+        { label: "Evidence desk", href: "#evidence-desk" },
+      ]} />
       <section className="forecast-hero">
         <div className="forecast-grid" aria-hidden="true" />
         <p className="kicker">Mehan Observatory / Living record 01</p>

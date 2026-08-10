@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useRef } from "react";
 
 type RouteKey = "home" | "forecast" | "dossier" | "singularity" | "models" | "space" | "about" | "contact";
 
@@ -9,27 +12,43 @@ const navigation = [
   { label: "U.S. vs China", href: "/models/", key: "models" },
   { label: "Space frontier", href: "/space/", key: "space" },
   { label: "About", href: "/about/", key: "about" },
-  { label: "China monitor", href: "/#intelligence", key: "home" },
-  { label: "Laboratory", href: "/#laboratory", key: "home" },
+  { label: "Contact", href: "/contact/", key: "contact" },
 ] as const;
 
-export function SiteHeader({ active }: { active?: RouteKey }) {
+type SectionLink = { label: string; href: string };
+
+export function SiteHeader({ active, sections = [] }: { active?: RouteKey; sections?: SectionLink[] }) {
+  const menuRef = useRef<HTMLDetailsElement>(null);
+  const closeMenu = () => menuRef.current?.removeAttribute("open");
+
   return (
     <header className="site-header">
       <Link className="wordmark" href="/" aria-label="Mehan Observatory home">
         <span className="mark">MO</span>
         <span>Mehan Observatory</span>
       </Link>
-      <nav aria-label="Primary navigation">
-        {navigation.map((item) => (
-          <Link className={active === item.key && item.key !== "home" ? "active" : undefined} href={item.href} key={item.label}>
-            {item.label}
-          </Link>
-        ))}
-      </nav>
-      <Link className={active === "contact" ? "book-link active" : "book-link"} href="/contact/">
-        Contact <span>→</span>
-      </Link>
+      <details className="site-menu" ref={menuRef}>
+        <summary><span>Explore</span><i aria-hidden="true" /></summary>
+        <div className={sections.length ? "site-menu-panel has-sections" : "site-menu-panel"}>
+          <div>
+            <p>Observatory pages</p>
+            <nav aria-label="Primary navigation">
+              <Link className={active === "home" ? "active" : undefined} href="/" onClick={closeMenu}><span>00</span>Observatory</Link>
+              {navigation.map((item, index) => (
+                <Link className={active === item.key ? "active" : undefined} href={item.href} key={item.label} onClick={closeMenu}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>{item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+          {sections.length > 0 && <div className="site-menu-sections">
+            <p>On this page</p>
+            <nav aria-label="On this page">
+              {sections.map((item, index) => <a href={item.href} key={item.href} onClick={closeMenu}><span>{String(index + 1).padStart(2, "0")}</span>{item.label}</a>)}
+            </nav>
+          </div>}
+        </div>
+      </details>
     </header>
   );
 }
@@ -42,7 +61,6 @@ export function SiteFooter() {
       <nav className="footer-links" aria-label="Footer navigation">
         <Link href="/">Observatory</Link>
         {navigation.map((item) => <Link href={item.href} key={item.label}>{item.label}</Link>)}
-        <Link href="/contact/">Contact</Link>
       </nav>
       <small>© 2026 Ashok Mehan · Washington, D.C.</small>
     </footer>

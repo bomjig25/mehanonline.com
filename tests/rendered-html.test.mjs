@@ -55,7 +55,7 @@ test("server-renders Event Horizon as a connected flagship field guide", async (
   assert.match(html, /href="\/#laboratory"/);
 });
 
-test("keeps the full Observatory footer navigation consistent across routes", async () => {
+test("keeps page destinations in the footer navigation across routes", async () => {
   for (const pathname of ["/", "/forecast-ledger/", "/dossiers/week-of-work/", "/singularity/", "/models/", "/space/", "/about/", "/contact/"]) {
     const response = await render(pathname);
     assert.equal(response.status, 200);
@@ -68,10 +68,21 @@ test("keeps the full Observatory footer navigation consistent across routes", as
     assert.match(html, /href="\/models\/"[^>]*>U\.S\. vs China<\/a>/);
     assert.match(html, /href="\/space\/"[^>]*>Space frontier<\/a>/);
     assert.match(html, /href="\/about\/"[^>]*>About<\/a>/);
-    assert.match(html, /href="\/#intelligence"[^>]*>China monitor<\/a>/);
-    assert.match(html, /href="\/#laboratory"[^>]*>Laboratory<\/a>/);
     assert.match(html, /href="\/contact\/"[^>]*>Contact<\/a>/);
   }
+});
+
+test("uses a compact page-only menu with local section links on pertinent pages", async () => {
+  const homeHtml = await (await render("/")).text();
+  assert.match(homeHtml, /<summary><span>Explore<\/span>/);
+  assert.match(homeHtml, /aria-label="On this page"/);
+  assert.match(homeHtml, /href="#intelligence"[^>]*><span>01<\/span>China monitor<\/a>/);
+  assert.match(homeHtml, /href="#laboratory"[^>]*><span>02<\/span>Laboratory<\/a>/);
+
+  const forecastHtml = await (await render("/forecast-ledger/")).text();
+  assert.match(forecastHtml, /href="#probability-field"/);
+  assert.match(forecastHtml, /href="#disagreement-map"/);
+  assert.doesNotMatch(forecastHtml, /href="\/#intelligence"/);
 });
 
 test("renders Ashok Mehan's live Gravatar profile card", async () => {
