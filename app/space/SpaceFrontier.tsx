@@ -124,10 +124,10 @@ export default function SpaceFrontier() {
     <main className="space-page">
       <SiteHeader active="space" />
 
-      <section className="space-hero">
+      <section className="space-hero observatory-page-hero">
         <div className="space-stars" aria-hidden="true" />
         <div className="space-arc arc-a" aria-hidden="true" /><div className="space-arc arc-b" aria-hidden="true" />
-        <div className="space-hero-copy">
+        <div className="space-hero-copy observatory-hero-copy">
           <p className="kicker">Frontier field 02 / Earth + beyond</p>
           <h1>The farther intelligence travels,<br /><em>the less it can wait for us.</em></h1>
           <p>Seventy-two mission records reveal more than a new space race. They show a transfer of judgment—from distant control rooms to machines that must perceive, decide, and recover on their own.</p>
@@ -149,6 +149,7 @@ export default function SpaceFrontier() {
           width={1774}
           height={887}
           sizes="100vw"
+          unoptimized
         />
         <figcaption><span>Earth sends the instruction.</span><strong>Distance decides who must act.</strong></figcaption>
       </figure>

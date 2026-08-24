@@ -153,9 +153,9 @@ export default function ModelsPage() {
     <main className="frontier-page">
       <SiteHeader active="models" />
 
-      <section className="frontier-hero">
+      <section className="frontier-hero observatory-page-hero">
         <div className="frontier-grid" aria-hidden="true" />
-        <div className="frontier-hero-copy">
+        <div className="frontier-hero-copy observatory-hero-copy">
           <p className="kicker">Frontier field / United States + China</p>
           <h1>The frontier has<br /><em>two horizons.</em></h1>
           <p>

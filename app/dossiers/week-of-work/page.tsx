@@ -85,9 +85,9 @@ export default function WeekOfWorkDossierPage() {
         <section className="dossier-evidence" aria-labelledby="evidence-title">
           <div className="dossier-section-heading"><span className="section-number">06</span><div><p className="kicker">What would settle it</p><h2 id="evidence-title">Evidence that<br /><em>moves the number.</em></h2></div></div>
           <div className="evidence-movers">
-            <article><span>↑ Raise</span><h3>Independent week-scale replication</h3><p>At least 80% success on unfamiliar tasks across several domains, audited for hidden human help and benchmark leakage.</p></article>
-            <article><span>↓ Lower</span><h3>A persistent reliability ceiling</h3><p>Long-horizon gains that disappear when specifications are incomplete, requirements change, or recovery from an early error is required.</p></article>
-            <article><span>↺ Reframe</span><h3>A new definition of work</h3><p>If useful output becomes a human–agent relay rather than autonomous completion, we will track that separately instead of moving the goalposts.</p></article>
+            <article><span className="direction-badge direction-up"><b aria-hidden="true">↑</b> Raises forecast</span><h3>Independent week-scale replication</h3><p>At least 80% success on unfamiliar tasks across several domains, audited for hidden human help and benchmark leakage.</p></article>
+            <article><span className="direction-badge direction-down"><b aria-hidden="true">↓</b> Lowers forecast</span><h3>A persistent reliability ceiling</h3><p>Long-horizon gains that disappear when specifications are incomplete, requirements change, or recovery from an early error is required.</p></article>
+            <article><span className="direction-badge direction-reframe"><b aria-hidden="true">↺</b> Reframes forecast</span><h3>A new definition of work</h3><p>If useful output becomes a human–agent relay rather than autonomous completion, we will track that separately instead of moving the goalposts.</p></article>
           </div>
         </section>
 

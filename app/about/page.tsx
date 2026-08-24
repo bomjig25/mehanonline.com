@@ -26,8 +26,8 @@ export default function AboutPage() {
   return (
     <main className="about-page">
       <SiteHeader active="about" />
-      <section className="about-hero">
-        <div>
+      <section className="about-hero observatory-page-hero">
+        <div className="observatory-hero-copy">
           <p className="kicker">The observer / Washington, D.C.</p>
           <h1>Behind the<br /><em>Observatory.</em></h1>
         </div>

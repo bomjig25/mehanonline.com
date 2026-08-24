@@ -17,10 +17,12 @@ export default function ContactPage() {
   return (
     <main className="contact-page">
       <SiteHeader active="contact" />
-      <section className="contact-hero">
-        <p className="kicker">Open channel / Washington, D.C.</p>
-        <h1>Continue the<br /><em>inquiry.</em></h1>
-        <p>Questions, corrections, research collaborations, media inquiries, and considered disagreements are welcome.</p>
+      <section className="contact-hero observatory-page-hero">
+        <div className="observatory-hero-copy">
+          <p className="kicker">Open channel / Washington, D.C.</p>
+          <h1>Continue the<br /><em>inquiry.</em></h1>
+          <p>Questions, corrections, research collaborations, media inquiries, and considered disagreements are welcome.</p>
+        </div>
       </section>
       <section className="contact-layout">
         <div className="contact-intro">

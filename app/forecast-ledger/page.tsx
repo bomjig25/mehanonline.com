@@ -60,10 +60,10 @@ export default function ForecastLedgerPage() {
         { label: "Forecast records", href: "#forecast-records" },
         { label: "Evidence desk", href: "#evidence-desk" },
       ]} />
-      <section className="forecast-hero">
+      <section className="forecast-hero observatory-page-hero">
         <div className="forecast-grid" aria-hidden="true" />
-        <p className="kicker">Mehan Observatory / Living record 01</p>
-        <div>
+        <div className="observatory-hero-copy">
+          <p className="kicker">Mehan Observatory / Living record 01</p>
           <h1>The forecast<br /><em>must survive the evidence.</em></h1>
           <p>Six claims about the approaching AI frontier. Each has a probability, a deadline, a disagreement record, and a condition that would prove us wrong.</p>
           <a className="primary-action" href="#forecast-instrument-title">Enter the probability field →</a>

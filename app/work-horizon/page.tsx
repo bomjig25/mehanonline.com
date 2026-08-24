@@ -40,10 +40,10 @@ export default function WorkHorizonPage() {
         { label: "Sources", href: "#work-sources" },
       ]} />
 
-      <section className="work-hero">
+      <section className="work-hero observatory-page-hero">
         <div className="work-grid" aria-hidden="true" />
-        <p className="kicker">Mehan Observatory / Applied frontier 01</p>
-        <div>
+        <div className="observatory-hero-copy">
+          <p className="kicker">Mehan Observatory / Applied frontier 01</p>
           <h1>How much of a job<br />fits inside today&apos;s <em>AI horizon?</em></h1>
           <p>Not a headline about jobs disappearing. A task-level map of what machines can plausibly assist, what real workplaces make harder, and what remains stubbornly human.</p>
           <a className="primary-action" href="#work-explorer">Open the instrument →</a>

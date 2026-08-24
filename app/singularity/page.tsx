@@ -140,12 +140,12 @@ export default function SingularityPage() {
     <main className="horizon-page">
       <SiteHeader active="singularity" />
 
-      <section className="horizon-hero" id="top">
+      <section className="horizon-hero observatory-page-hero" id="top">
         <div className="horizon-grid" aria-hidden="true" />
         <div className="horizon-orbit horizon-orbit-one" aria-hidden="true" />
         <div className="horizon-orbit horizon-orbit-two" aria-hidden="true" />
-        <p className="kicker">Mehan Observatory / Field Guide 01</p>
-        <div className="horizon-hero-copy">
+        <div className="horizon-hero-copy observatory-hero-copy">
+          <p className="kicker">Mehan Observatory / Field Guide 01</p>
           <h1>Beyond the<br /><em>event horizon.</em></h1>
           <p>
             Artificial intelligence is advancing quickly. A technological singularity—the point
