@@ -12,7 +12,9 @@ export const metadata: Metadata = {
     title: "Work Horizon Lab — Mehan Observatory",
     description: "A task-level instrument for seeing where today's AI frontier meets real work.",
     url: "https://mehanonline.com/work-horizon/",
+    images: [{ url: "https://mehanonline.com/og.png", width: 1792, height: 896, alt: "Mehan Observatory Work Horizon Lab" }],
   },
+  twitter: { card: "summary_large_image", title: "Work Horizon Lab — Mehan Observatory", description: "A task-level instrument for seeing where today's AI frontier meets real work.", images: ["https://mehanonline.com/og.png"] },
 };
 
 export default function WorkHorizonPage() {

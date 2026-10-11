@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "China Frontier Model Monitor",
-    "updated": "2026-07-26",
+    "updated": "2026-10-11",
     "methodology": "Technical specifications are taken from official developer documentation, company announcements, or official model repositories. Editorial strength scores are directional, not benchmark composites.",
     "sources_checked": 10
   },
@@ -26,22 +26,22 @@
       "verified": true
     },
     {
-      "id": "glm-5-2",
-      "model": "GLM-5.2",
+      "id": "glm-5-3",
+      "model": "GLM-5.3",
       "company": "Z.ai / Zhipu AI",
       "country": "China",
-      "released": "2026-06-16",
+      "released": "2026-08-14",
       "context": 1000000,
       "max_output": null,
       "parameters": "Not disclosed",
-      "architecture": "Not disclosed",
-      "access": "Hosted API",
+      "architecture": "GLM-5.2 base with scaled post-training",
+      "access": "Hosted API + open weights",
       "modalities": ["Text", "Code"],
-      "features": ["Long-horizon tasks", "Tool use", "Coding agents", "1M-token context"],
-      "strengths": ["Agentic coding", "Long-context work", "Repository tasks", "Tool use"],
-      "scores": {"reasoning": 94, "coding": 97, "agents": 98, "multimodal": 48, "efficiency": 86},
-      "source": "https://z.ai/blog/glm-5.2",
-      "source_label": "Z.ai official GLM-5.2 announcement",
+      "features": ["Long-horizon tasks", "Tool use", "Coding agents", "Configurable reasoning effort"],
+      "strengths": ["Agentic coding", "Long-horizon work", "Repository tasks", "Tool use"],
+      "scores": {"reasoning": 95, "coding": 98, "agents": 98, "multimodal": 48, "efficiency": 89},
+      "source": "https://z.ai/blog/glm-5.3",
+      "source_label": "Z.ai official GLM-5.3 announcement",
       "verified": true
     },
     {
@@ -135,8 +135,8 @@
       "features": ["Coding agent", "Tool use", "Terminal workflow", "Adaptive output tokens"],
       "strengths": ["Coding", "Developer agents", "Tool use", "Workflow automation"],
       "scores": {"reasoning": 92, "coding": 96, "agents": 96, "multimodal": 46, "efficiency": 90},
-      "source": "https://qwenlm.github.io/qwen-code-docs/en/blog/weekly-update-2026-04-09/",
-      "source_label": "Qwen Code official launch update",
+      "source": "https://qwenlm.github.io/blog/qwen3-coder/",
+      "source_label": "Qwen official coding model overview",
       "verified": true
     },
     {

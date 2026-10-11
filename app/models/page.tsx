@@ -11,7 +11,9 @@ export const metadata: Metadata = {
     title: "The Frontier Field: U.S. vs China",
     description: "Eight systems. Two ecosystems. One accelerating intelligence frontier.",
     url: "https://mehanonline.com/models/",
+    images: [{ url: "https://mehanonline.com/og.png", width: 1792, height: 896, alt: "Mehan Observatory frontier model field" }],
   },
+  twitter: { card: "summary_large_image", images: ["https://mehanonline.com/og.png"] },
 };
 
 type FrontierModel = {
@@ -27,14 +29,14 @@ type FrontierModel = {
 
 const usModels: FrontierModel[] = [
   {
-    model: "GPT-5.6 Sol",
+    model: "GPT-6 Astra",
     maker: "OpenAI",
     status: "Frontier API",
-    role: "Complex professional work",
-    strength: "Reasoning, coding, and tool-driven work across a 1.05M-token context window.",
-    watch: "Whether a tiered Sol / Terra / Luna family becomes the standard way frontier intelligence is packaged.",
-    source: "https://platform.openai.com/docs/models/gpt-5.6-sol",
-    sourceLabel: "OpenAI model documentation",
+    role: "High-stakes professional work",
+    strength: "Computer use, browsing, software engineering, science, and professional work in OpenAI's most capable tier.",
+    watch: "Whether gains in computer use and research translate into dependable, auditable delegation outside controlled tasks.",
+    source: "https://openai.com/index/gpt-6-astra/",
+    sourceLabel: "OpenAI official announcement",
   },
   {
     model: "Claude Opus 5",
@@ -47,23 +49,23 @@ const usModels: FrontierModel[] = [
     sourceLabel: "Anthropic model overview",
   },
   {
-    model: "Gemini 3.1 Pro",
+    model: "Gemini 3.8 Flash",
     maker: "Google DeepMind",
-    status: "Preview",
-    role: "Multimodal problem solving",
-    strength: "Advanced intelligence, complex problem solving, agentic work, and multimodal reach.",
+    status: "Stable API",
+    role: "Long-horizon agents",
+    strength: "Multi-step planning, deterministic tools, long-horizon software work, and enterprise workflows.",
     watch: "The advantage created when a frontier model is distributed through search, cloud, devices, and productivity software.",
-    source: "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview",
+    source: "https://ai.google.dev/gemini-api/docs/latest-model",
     sourceLabel: "Google Gemini model documentation",
   },
   {
-    model: "Grok 4.5",
+    model: "Grok 4.7",
     maker: "xAI",
     status: "Frontier API",
-    role: "Fast general intelligence",
-    strength: "General reasoning and code with an emphasis on speed and current-world interaction.",
+    role: "Coding and agentic work",
+    strength: "Reasoning, tool calling, text and image input, and a 500,000-token context window.",
     watch: "Whether real-time distribution and a rapidly iterating model family create a distinct frontier advantage.",
-    source: "https://docs.x.ai/developers/grok-4-5",
+    source: "https://docs.x.ai/developers/models/grok-4.7",
     sourceLabel: "xAI model documentation",
   },
 ];
@@ -80,13 +82,13 @@ const chinaModels: FrontierModel[] = [
     sourceLabel: "Moonshot AI documentation",
   },
   {
-    model: "GLM-5.2",
+    model: "GLM-5.3",
     maker: "Z.ai / Zhipu AI",
     status: "Hosted API",
     role: "Repository-scale agents",
-    strength: "Long-horizon tasks, coding agents, tool use, and a million-token context window.",
+    strength: "Coding, long-horizon tasks, and open-weight deployment, with gains produced through scaled post-training.",
     watch: "The pace at which Chinese coding systems become credible alternatives for global developer workflows.",
-    source: "https://z.ai/blog/glm-5.2",
+    source: "https://z.ai/blog/glm-5.3",
     sourceLabel: "Z.ai official announcement",
   },
   {
@@ -149,8 +151,18 @@ function ModelCard({ model, index, region }: { model: FrontierModel; index: numb
 }
 
 export default function ModelsPage() {
+  const modelListSchema = {
+    "@context": "https://schema.org", "@type": "ItemList",
+    name: "United States and China frontier AI model field record",
+    description: metadata.description, dateModified: "2026-10-11",
+    url: "https://mehanonline.com/models/",
+    itemListElement: [...usModels, ...chinaModels].map((model, index) => ({
+      "@type": "ListItem", position: index + 1, name: `${model.maker} ${model.model}`, url: model.source,
+    })),
+  };
   return (
     <main className="frontier-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(modelListSchema) }} />
       <SiteHeader active="models" />
 
       <section className="frontier-hero observatory-page-hero">
@@ -165,8 +177,8 @@ export default function ModelsPage() {
         </div>
         <div className="frontier-stamp">
           <span>Field record</span>
-          <strong>2026.08</strong>
-          <small>Reviewed August 3, 2026</small>
+          <strong>2026.10</strong>
+          <small>Reviewed October 11, 2026</small>
         </div>
       </section>
 

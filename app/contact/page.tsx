@@ -10,12 +10,20 @@ export const metadata: Metadata = {
     title: "Contact — Mehan Observatory",
     description: "Questions, corrections, research collaborations, and considered disagreements are welcome.",
     url: "https://mehanonline.com/contact/",
+    images: [{ url: "https://mehanonline.com/og.png", width: 1792, height: 896, alt: "Mehan Observatory" }],
   },
+  twitter: { card: "summary_large_image", images: ["https://mehanonline.com/og.png"] },
 };
 
 export default function ContactPage() {
+  const contactSchema = {
+    "@context": "https://schema.org", "@type": "ContactPage",
+    name: "Contact Mehan Observatory", url: "https://mehanonline.com/contact/",
+    about: { "@type": "Organization", name: "Mehan Observatory", url: "https://mehanonline.com/" },
+  };
   return (
     <main className="contact-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }} />
       <SiteHeader active="contact" />
       <section className="contact-hero observatory-page-hero">
         <div className="observatory-hero-copy">

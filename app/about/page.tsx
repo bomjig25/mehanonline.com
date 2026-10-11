@@ -11,7 +11,9 @@ export const metadata: Metadata = {
     title: "About Ashok Mehan — Mehan Observatory",
     description: "The author and observer behind History's Future and the Mehan Observatory.",
     url: "https://mehanonline.com/about/",
+    images: [{ url: "https://mehanonline.com/og.png", width: 1792, height: 896, alt: "Mehan Observatory" }],
   },
+  twitter: { card: "summary_large_image", images: ["https://mehanonline.com/og.png"] },
 };
 
 export default function AboutPage() {

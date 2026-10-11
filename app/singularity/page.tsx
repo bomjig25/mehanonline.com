@@ -136,8 +136,18 @@ const doorways = [
 ];
 
 export default function SingularityPage() {
+  const articleSchema = {
+    "@context": "https://schema.org", "@type": "Article",
+    headline: "Beyond the Event Horizon", description: metadata.description,
+    datePublished: "2026-08-09", dateModified: "2026-08-09",
+    author: { "@type": "Person", name: "Ashok Mehan", url: "https://mehanonline.com/about/" },
+    publisher: { "@type": "Organization", name: "Mehan Observatory", url: "https://mehanonline.com/" },
+    mainEntityOfPage: "https://mehanonline.com/singularity/",
+    image: "https://mehanonline.com/event-horizon-og.png",
+  };
   return (
     <main className="horizon-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <SiteHeader active="singularity" />
 
       <section className="horizon-hero observatory-page-hero" id="top">

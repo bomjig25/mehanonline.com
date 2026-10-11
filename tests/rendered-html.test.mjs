@@ -56,7 +56,7 @@ test("server-renders Event Horizon as a connected flagship field guide", async (
 });
 
 test("keeps page destinations in the footer navigation across routes", async () => {
-  for (const pathname of ["/", "/forecast-ledger/", "/work-horizon/", "/dossiers/week-of-work/", "/singularity/", "/models/", "/space/", "/about/", "/contact/"]) {
+  for (const pathname of ["/", "/forecast-ledger/", "/work-horizon/", "/dossiers/", "/dossiers/economic-actor/", "/dossiers/week-of-work/", "/singularity/", "/models/", "/space/", "/about/", "/contact/"]) {
     const response = await render(pathname);
     assert.equal(response.status, 200);
     const html = await response.text();
@@ -64,7 +64,7 @@ test("keeps page destinations in the footer navigation across routes", async () 
     assert.match(html, /aria-label="Footer navigation"/);
     assert.match(html, /href="\/forecast-ledger\/"[^>]*>Forecast ledger<\/a>/);
     assert.match(html, /href="\/work-horizon\/"[^>]*>Work Horizon<\/a>/);
-    assert.match(html, /href="\/dossiers\/week-of-work\/"[^>]*>Dossiers<\/a>/);
+    assert.match(html, /href="\/dossiers\/"[^>]*>Dossiers<\/a>/);
     assert.match(html, /href="\/singularity\/"[^>]*>Event Horizon<\/a>/);
     assert.match(html, /href="\/models\/"[^>]*>U\.S\. vs China<\/a>/);
     assert.match(html, /href="\/space\/"[^>]*>Space frontier<\/a>/);
@@ -150,6 +150,27 @@ test("renders the week-of-work disagreement dossier with evidence and signup", a
   assert.match(html, /name="email"/);
 });
 
+test("renders the dossier archive and economic-actor threshold instrument", async () => {
+  const indexResponse = await render("/dossiers/");
+  assert.equal(indexResponse.status, 200);
+  const indexHtml = await indexResponse.text();
+  assert.match(indexHtml, /<title>AI Disagreement Dossiers — Mehan Observatory<\/title>/i);
+  assert.match(indexHtml, /When does an AI agent become an economic actor/i);
+  assert.match(indexHtml, /Can an AI do a week of useful work/i);
+  assert.match(indexHtml, /CollectionPage/);
+
+  const dossierResponse = await render("/dossiers/economic-actor/");
+  assert.equal(dossierResponse.status, 200);
+  const dossierHtml = await dossierResponse.text();
+  assert.match(dossierHtml, /Disagreement dossier 02/i);
+  assert.match(dossierHtml, /Preference fidelity/);
+  assert.match(dossierHtml, /Delegated authority/);
+  assert.match(dossierHtml, /Current classification/);
+  assert.match(dossierHtml, /Project Swap/);
+  assert.match(dossierHtml, /application\/ld\+json/);
+  assert.match(dossierHtml, /Article/);
+});
+
 test("renders the Work Horizon Lab as a connected task-level instrument", async () => {
   const response = await render("/work-horizon/");
   assert.equal(response.status, 200);
@@ -167,7 +188,7 @@ test("renders the Work Horizon Lab as a connected task-level instrument", async 
 });
 
 test("keeps outbound links in browser history instead of opening stranded tabs", async () => {
-  for (const pathname of ["/", "/forecast-ledger/", "/work-horizon/", "/dossiers/week-of-work/", "/singularity/", "/models/", "/space/"]) {
+  for (const pathname of ["/", "/forecast-ledger/", "/work-horizon/", "/dossiers/economic-actor/", "/dossiers/week-of-work/", "/singularity/", "/models/", "/space/"]) {
     const response = await render(pathname);
     const html = await response.text();
     const outboundLinks = html.match(/<a\b[^>]*href="https?:\/\/[^\"]+"[^>]*>/g) ?? [];
@@ -185,6 +206,7 @@ test("wires interactive controls to reveal their updated result", async () => {
     "../app/page.tsx",
     "../app/forecast-ledger/ForecastLedger.tsx",
     "../app/dossiers/week-of-work/DossierInteractive.tsx",
+    "../app/dossiers/economic-actor/EconomicActorInstrument.tsx",
     "../app/space/SpaceFrontier.tsx",
     "../app/work-horizon/WorkHorizonLab.tsx",
   ]) {

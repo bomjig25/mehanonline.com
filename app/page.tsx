@@ -83,6 +83,12 @@ export default function Home() {
     (model) => (model.context || 0) >= 1_000_000 || (model.extended_context || 0) >= 1_000_000,
   ).length;
   const machineYears = Math.round((machineSpeed * 1) / 8.76) / 100;
+  const websiteJsonLd = {
+    "@context": "https://schema.org", "@type": "WebSite",
+    name: "Mehan Observatory", url: "https://mehanonline.com/",
+    description: "A source-backed observatory for frontier AI, autonomy, forecasts, and the technological singularity.",
+    author: { "@type": "Person", name: "Ashok Mehan", url: "https://mehanonline.com/about/" },
+  };
 
   function toggleModel(id: string, reveal = false) {
     setSelected((current) => {
@@ -95,6 +101,7 @@ export default function Home() {
 
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
       <SiteHeader active="home" sections={[
         { label: "China monitor", href: "#intelligence" },
         { label: "Laboratory", href: "#laboratory" },
@@ -123,14 +130,14 @@ export default function Home() {
         </div>
         <div className="coordinate-line">
           <span>38.9072° N / 77.0369° W</span>
-          <span>Field record 2026.07</span>
+          <span>Field record 2026.10</span>
           <span className="signal"><i /> Observatory online</span>
         </div>
       </section>
 
       <section className="brief-band" aria-label="Current field briefing">
         <div className="section-number">01</div>
-        <div className="brief-label"><span>Field briefing</span><time>Reviewed July 26, 2026</time></div>
+        <div className="brief-label"><span>Field briefing</span><time>Reviewed October 11, 2026</time></div>
         <h2>{latest.model} is the newest tracked frontier release.</h2>
         <p>
           {latest.company} leads the release tape as million-token context and long-horizon agents
@@ -146,10 +153,19 @@ export default function Home() {
         <div><span>Primary sources</span><strong>{modelData.meta.sources_checked.toString().padStart(2, "0")}</strong><small>Source-backed records</small></div>
       </section>
 
+      <section className="dossier-home-band" aria-labelledby="dossier-home-title">
+        <div><span className="section-number">New</span><p className="kicker">Disagreement Dossier 02 / economic agency</p></div>
+        <div>
+          <h2 id="dossier-home-title">When does an AI agent<br />become an <em>economic actor?</em></h2>
+          <p>Capability is only the first threshold. Test the combination of delegated authority, preference fidelity, persistence, accountability, and real market consequence.</p>
+        </div>
+        <a href="/dossiers/economic-actor/">Enter the dossier <span>→</span></a>
+      </section>
+
       <section className="forecast-home-band" aria-labelledby="forecast-home-title">
         <div><span className="section-number">New</span><p className="kicker">Forecast ledger / living record</p></div>
         <div><h2 id="forecast-home-title">What we expect.<br /><em>Where experts disagree.</em></h2><p>Six falsifiable forecasts place probability, deadlines, contrary evidence, and revision history on the same page.</p></div>
-        <div className="forecast-home-links"><a href="/forecast-ledger/">Open the ledger <span>→</span></a><a href="/dossiers/week-of-work/">Read Dossier 01 <span>→</span></a></div>
+        <div className="forecast-home-links"><a href="/forecast-ledger/">Open the ledger <span>→</span></a><a href="/dossiers/">Browse the dossiers <span>→</span></a></div>
       </section>
 
       <section className="work-home-band" aria-labelledby="work-home-title">

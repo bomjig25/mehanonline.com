@@ -8,7 +8,7 @@ type RouteKey = "home" | "forecast" | "work" | "dossier" | "singularity" | "mode
 const navigation = [
   { label: "Forecast ledger", href: "/forecast-ledger/", key: "forecast" },
   { label: "Work Horizon", href: "/work-horizon/", key: "work" },
-  { label: "Dossiers", href: "/dossiers/week-of-work/", key: "dossier" },
+  { label: "Dossiers", href: "/dossiers/", key: "dossier" },
   { label: "Event Horizon", href: "/singularity/", key: "singularity" },
   { label: "U.S. vs China", href: "/models/", key: "models" },
   { label: "Space frontier", href: "/space/", key: "space" },
