@@ -43,7 +43,7 @@ export default function AboutPage() {
         <div className="about-profile-copy">
           <span className="section-number">01</span>
           <p className="kicker">Identity card / Gravatar</p>
-          <h2 id="about-profile-title">One profile,<br /><em>kept current.</em></h2>
+          <h2 id="about-profile-title">Ashok Mehan,<br /><em>author and editor.</em></h2>
           <p>
             This live profile card is maintained through Gravatar, so the biography, portrait,
             and verified links remain connected to their source.
@@ -55,6 +55,10 @@ export default function AboutPage() {
           <div className="gravatar-instrument-head">
             <span><i /> Profile signal</span>
             <span>Live / Gravatar</span>
+          </div>
+          <div className="gravatar-identity">
+            <strong>Ashok Mehan</strong>
+            <span>Author of <em>History&apos;s Future</em> · Editor, Mehan Observatory</span>
           </div>
           <div className="gravatar-card-scroller">
             <iframe

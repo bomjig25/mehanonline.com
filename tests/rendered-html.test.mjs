@@ -93,6 +93,8 @@ test("renders Ashok Mehan's live Gravatar profile card", async () => {
 
   assert.match(html, /<title>About Ashok Mehan — Mehan Observatory<\/title>/i);
   assert.match(html, /Behind the/);
+  assert.match(html, /author and editor/i);
+  assert.match(html, /Editor, Mehan Observatory/i);
   assert.match(html, /https:\/\/gravatar\.com\/bomjig25\.card/);
   assert.match(html, /width="520"/);
   assert.match(html, /height="320"/);
